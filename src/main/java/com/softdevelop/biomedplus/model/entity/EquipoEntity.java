@@ -49,6 +49,6 @@ public class EquipoEntity {
   private String tipoEquipo;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
+  @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
   private ProveedorEntity proveedor;
 }

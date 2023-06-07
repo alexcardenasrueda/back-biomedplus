@@ -10,6 +10,9 @@ public class ProveedorTranslator {
   public ProveedorEntity proveedorDtoToProveedorEntityT(ProveedorDto proveedorDto) {
     return ProveedorEntity.builder()
         .nombre(proveedorDto.getNombre().toUpperCase())
+        .telefono(proveedorDto.getTelefono())
+        .ciudad(proveedorDto.getCiudad())
+        .direccion(proveedorDto.getDireccion().toUpperCase())
         .build();
   }
 }

@@ -1,5 +1,6 @@
 package com.softdevelop.biomedplus.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,9 +27,21 @@ public class ProveedorEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(name = "nombre")
   private String nombre;
+
+  @Column(name = "telefono")
+
   private String telefono;
-  private String dirección;
+
+  @Column(name = "ciudad")
+
+  private String ciudad;
+
+  @Column(name = "direccion")
+
+  private String direccion;
 
   @OneToOne(mappedBy = "proveedor")
   private EquipoEntity equipo;
