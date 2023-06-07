@@ -9,9 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class EquipoRq {
-
-  private Long id;
+public class EquipoDto {
   private String nombre;
   private String marca;
   private String modelo;
