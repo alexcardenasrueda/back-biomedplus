@@ -1,11 +1,18 @@
 package com.softdevelop.biomedplus.service.impl;
 
 import com.softdevelop.biomedplus.model.dto.EquipoDto;
+import com.softdevelop.biomedplus.model.dto.ProximoMantenimientoEquipoDto;
 import com.softdevelop.biomedplus.model.entity.EquipoEntity;
+import com.softdevelop.biomedplus.model.entity.MantenimientoEntity;
 import com.softdevelop.biomedplus.repository.EquipoRepository;
+import com.softdevelop.biomedplus.repository.MantenimientoRepository;
 import com.softdevelop.biomedplus.service.EquipoService;
 import com.softdevelop.biomedplus.service.translator.EquipoTranslator;
 import com.softdevelop.biomedplus.service.translator.ProveedorTranslator;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,6 +23,7 @@ import org.springframework.stereotype.Service;
 public class EquipoServiceImpl implements EquipoService {
 
   private final EquipoRepository repository;
+  private final MantenimientoRepository mantenimientoRepository;
   private final EquipoTranslator equipoTranslator;
 
   private final ModelMapper modelMapper;
@@ -32,4 +40,22 @@ public class EquipoServiceImpl implements EquipoService {
     return modelMapper.map(equipoUpdated, EquipoDto.class);
   }
 
+  @Override
+  public List<ProximoMantenimientoEquipoDto> nextMaintenanceProducts() {
+    List<MantenimientoEntity> mantenimientos = mantenimientoRepository.
+            findByFechaEstimadaLessThanEqualAndFechaEjecutadaIsNull(LocalDate.now().plusDays(30));
+    List<ProximoMantenimientoEquipoDto> proximosMantenimientos = new ArrayList<ProximoMantenimientoEquipoDto>();
+    for (MantenimientoEntity mantenimiento: mantenimientos) {
+        proximosMantenimientos.add(new ProximoMantenimientoEquipoDto(mantenimiento.getEquipo().getId(),
+                mantenimiento.getEquipo().getNombre(),
+                mantenimiento.getEquipo().getMarca(),
+                mantenimiento.getEquipo().getModelo(),
+                mantenimiento.getEquipo().getSerie(),
+                mantenimiento.getEquipo().getServicio(),
+                mantenimiento.getEquipo().getArea(),
+                mantenimiento.getEquipo().getTipoEquipo(),
+                mantenimiento.getFechaEstimada().toString()));
+    }
+    return proximosMantenimientos;
+  }
 }
