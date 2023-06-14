@@ -6,6 +6,8 @@ import com.softdevelop.biomedplus.repository.EquipoRepository;
 import com.softdevelop.biomedplus.service.EquipoService;
 import com.softdevelop.biomedplus.service.translator.EquipoTranslator;
 import com.softdevelop.biomedplus.service.translator.ProveedorTranslator;
+
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,12 @@ public class EquipoServiceImpl implements EquipoService {
     EquipoEntity equipoUpdated = repository.save(
         equipoTranslator.setEquipoDtoToEquipoEntity(equipoEntity.get(), equipoRq));
     return modelMapper.map(equipoUpdated, EquipoDto.class);
+  }
+
+  @Override
+  public EquipoDto getProducts() {
+    List<EquipoEntity> equipos = (List<EquipoEntity>) repository.findAll();
+    return null;
   }
 
 }
