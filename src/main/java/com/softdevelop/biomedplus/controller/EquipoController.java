@@ -1,8 +1,11 @@
 package com.softdevelop.biomedplus.controller;
 
 import com.softdevelop.biomedplus.exception.EquipoNotFoundException;
+import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.model.dto.EquipoDto;
 import com.softdevelop.biomedplus.service.EquipoService;
+
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,8 +28,8 @@ public class EquipoController {
   }
 
   @GetMapping()
-  public ResponseEntity<EquipoDto> getProducts(){
-    EquipoDto equipos = equipoService.getProducts();
+  public ResponseEntity<List<EquipoDto>> getProducts() throws GenericException {
+    List<EquipoDto> equipos = equipoService.getProducts();
     return ResponseEntity.ok(equipos);
   }
 }

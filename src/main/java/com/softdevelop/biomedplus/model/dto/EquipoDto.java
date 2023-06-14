@@ -1,11 +1,14 @@
 package com.softdevelop.biomedplus.model.dto;
 
+import com.softdevelop.biomedplus.model.entity.ProveedorEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
