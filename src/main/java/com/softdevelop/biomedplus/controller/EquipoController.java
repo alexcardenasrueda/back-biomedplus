@@ -3,6 +3,7 @@ package com.softdevelop.biomedplus.controller;
 import com.softdevelop.biomedplus.exception.EquipoNotFoundException;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.model.dto.EquipoDto;
+import com.softdevelop.biomedplus.model.dto.ProximoMantenimientoEquipoDto;
 import com.softdevelop.biomedplus.service.EquipoService;
 
 import java.util.List;
@@ -31,5 +32,10 @@ public class EquipoController {
   public ResponseEntity<List<EquipoDto>> getProducts() throws GenericException {
     List<EquipoDto> equipos = equipoService.getProducts();
     return ResponseEntity.ok(equipos);
+  }
+
+    @GetMapping("/proximos-mantenimientos")
+  public ResponseEntity<List<ProximoMantenimientoEquipoDto>> nextMaintenance(){
+    return ResponseEntity.ok(equipoService.nextMaintenanceProducts());
   }
 }
