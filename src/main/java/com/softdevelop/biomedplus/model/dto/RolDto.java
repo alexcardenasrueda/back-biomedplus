@@ -5,21 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.math.BigInteger;
+
 @Getter
-@Setter
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ProveedorDto {
+public class RolDto implements Serializable {
+    private static final long serialVersionUID = 7340724116569669044L;
 
-  private Long id;
-  private String nombre;
-  private String telefono;
-  private String ciudad;
-  private String direccion;
+    private BigInteger id;
+    private String name;
 }
