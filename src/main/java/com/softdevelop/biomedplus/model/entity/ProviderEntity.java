@@ -17,33 +17,30 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "proveedores")
+@Table(name = "provider")
 @Entity
-public class ProveedorEntity {
+public class ProviderEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "nombre")
-  private String nombre;
+  @Column(name = "name")
+  private String name;
 
-  @Column(name = "telefono")
+  @Column(name = "phone")
+  private String phone;
 
-  private String telefono;
+  @Column(name = "city")
+  private String city;
 
-  @Column(name = "ciudad")
+  @Column(name = "address")
+  private String address;
 
-  private String ciudad;
+  @OneToOne(mappedBy = "provider")
+  private EquipementEntity equipement;
 
-  @Column(name = "direccion")
-
-  private String direccion;
-
-  @OneToOne(mappedBy = "proveedor")
-  private EquipoEntity equipo;
-
-  @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY,
+  @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY,
           cascade = CascadeType.ALL)
-  private List<RepuestoEntity> repuestoList;
+  private List<SpareEntity> spareList;
 }

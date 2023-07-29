@@ -1,5 +1,6 @@
 package com.softdevelop.biomedplus.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Getter
@@ -8,7 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class RepuestoDto {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class SpareDto {
     private String nombre;
     private String marca;
     private String modelo;
