@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RepuestoDto {
+public class SpareDto {
     private String nombre;
     private String marca;
     private String modelo;

@@ -17,7 +17,7 @@ import java.io.Serializable;
 @ToString
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class EquipoDto implements Serializable {
+public class EquipementDto implements Serializable {
 
   private static final long serialVersionUID = 511137409216173558L;
 
@@ -50,5 +50,5 @@ public class EquipoDto implements Serializable {
   @NotBlank(message = "El tipo de equipo no puede ser vacio")
   private String tipoEquipo;
 
-  @NotNull private ProveedorDto proveedor;
+  @NotNull private ProviderDto proveedor;
 }

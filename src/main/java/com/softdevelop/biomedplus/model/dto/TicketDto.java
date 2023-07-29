@@ -11,7 +11,7 @@ import java.math.BigInteger;
 @Getter
 @Builder
 @ToString
-public class SolicitudDto implements Serializable {
+public class TicketDto implements Serializable {
     private static final long serialVersionUID = -2726183053018213672L;
 
     private String descripcion;

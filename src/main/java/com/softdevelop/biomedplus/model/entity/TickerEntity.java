@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -22,25 +21,25 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "solicitudes")
+@Table(name = "ticket")
 @Entity
-public class SolicitudEntity {
+public class TickerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "descripcion")
-    private String descripcion;
-    @Column(name = "fecha_creacion")
-    private String fechaCreacion;
-    @Column(name = "fecha_cierre")
-    private String fechaCierre;
-    @Column(name = "imagen")
-    private String imagen;
-    @Column(name = "estado")
-    private Status id_estado;
-    @Column(name = "equipo")
-    private Long id_equipo;
-    @Column(name = "usuario")
-    private Long id_usuario;
+    @Column(name = "descritcion")
+    private String description;
+    @Column(name = "creation_date")
+    private String creationDate;
+    @Column(name = "close_date")
+    private String closeDate;
+    @Column(name = "image")
+    private String image;
+    @Column(name = "status")
+    private Status idStatus;
+    @Column(name = "equipement")
+    private Long idEquipement;
+    @Column(name = "user")
+    private Long idUser;
 }

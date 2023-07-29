@@ -10,13 +10,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "estados")
+@Table(name = "status")
 @Entity
-public class EstadoEntity {
+public class StatusEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "name")
+    private String name;
 }

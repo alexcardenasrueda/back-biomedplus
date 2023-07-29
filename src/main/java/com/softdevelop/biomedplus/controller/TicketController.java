@@ -1,7 +1,7 @@
 package com.softdevelop.biomedplus.controller;
 
-import com.softdevelop.biomedplus.model.dto.SolicitudDto;
-import com.softdevelop.biomedplus.service.SolicitudService;
+import com.softdevelop.biomedplus.model.dto.TicketDto;
+import com.softdevelop.biomedplus.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,13 +15,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/solicitudes")
 @RequiredArgsConstructor
-public class SolicitudController {
+public class TicketController {
 
-  private final SolicitudService solicitudService;
+  private final TicketService ticketService;
 
   @GetMapping()
-  public ResponseEntity<List<SolicitudDto>> getSolicitudes() {
-    List<SolicitudDto> requests = solicitudService.getSolicitudes();
+  public ResponseEntity<List<TicketDto>> getSolicitudes() {
+    List<TicketDto> requests = ticketService.getSolicitudes();
     return ResponseEntity.ok(requests);
   }
 }

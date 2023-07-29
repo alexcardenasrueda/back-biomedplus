@@ -1,14 +1,14 @@
 package com.softdevelop.biomedplus.repository;
 
-import com.softdevelop.biomedplus.model.entity.SolicitudEntity;
+import com.softdevelop.biomedplus.model.entity.TickerEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface SolicitudRepository extends CrudRepository<SolicitudEntity, Long> {
+public interface TickerRepository extends CrudRepository<TickerEntity, Long> {
 
   @Override
-  Optional<SolicitudEntity> findById(Long aLong);
+  Optional<TickerEntity> findById(Long aLong);
 }

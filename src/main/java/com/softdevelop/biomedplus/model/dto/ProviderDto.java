@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ProveedorDto {
+public class ProviderDto {
 
   private Long id;
   private String nombre;

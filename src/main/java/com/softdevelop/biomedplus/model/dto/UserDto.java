@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDto implements Serializable {
+public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 2909228228891829275L;
 
