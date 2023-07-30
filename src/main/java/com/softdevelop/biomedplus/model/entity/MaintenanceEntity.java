@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @Table(name = "maintenance")
 @Entity
-public class ManteinanceEntity {
+public class MaintenanceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,10 @@ public class ManteinanceEntity {
     private LocalDate doneDate;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_equipement", nullable = false, foreignKey = @ForeignKey(name = "FK_MANTEINANCE_EQUIPEMENT"))
-    private EquipementEntity equipement;
+    @JoinColumn(name = "id_equipment", nullable = false, foreignKey = @ForeignKey(name = "FK_MAINTENANCE_EQUIPMENT"))
+    private EquipmentEntity equipment;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_status", nullable = false, foreignKey = @ForeignKey(name = "FK_MANTEINANCE_STATUS"))
+    @JoinColumn(name = "id_status", nullable = false, foreignKey = @ForeignKey(name = "FK_MAINTENANCE_STATUS"))
     private StatusEntity status;
 }

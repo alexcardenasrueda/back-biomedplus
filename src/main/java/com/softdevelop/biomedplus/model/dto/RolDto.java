@@ -19,6 +19,6 @@ import java.math.BigInteger;
 public class RolDto implements Serializable {
     private static final long serialVersionUID = 7340724116569669044L;
 
-    private BigInteger id;
+    private Long id;
     private String name;
 }

@@ -36,10 +36,6 @@ public class SpareEntity {
     @Column(name = "price")
     private Long price;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
-//    private ProviderEntity proveedor;
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_provider", nullable = false, foreignKey = @ForeignKey(name = "FK_SPARE_PROVIDER"))
     private ProviderEntity provider;
