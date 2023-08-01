@@ -37,8 +37,9 @@ public class ProviderEntity {
   @Column(name = "address")
   private String address;
 
-  @OneToOne(mappedBy = "provider")
-  private EquipementEntity equipement;
+  @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL)
+  private List<EquipmentEntity> equipmentList;
 
   @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY,
           cascade = CascadeType.ALL)

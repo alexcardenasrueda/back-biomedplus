@@ -10,14 +10,14 @@ import lombok.*;
 @ToString
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class NextManteinanceEquipementDto {
+public class NextMaintenanceEquipmentDto {
   private Long id;
-  private String nombre;
-  private String marca;
-  private String modelo;
-  private String serie;
-  private String servicio;
+  private String name;
+  private String brand;
+  private String model;
+  private String series;
+  private String service;
   private String area;
-  private String tipoEquipo;
-  private String fechaProximoMantenimiento;
+  private String equipmentType;
+  private String nextMaintenanceDate;
 }

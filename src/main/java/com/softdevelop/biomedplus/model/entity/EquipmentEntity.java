@@ -17,9 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "equipement")
+@Table(name = "equipment")
 @Entity
-public class EquipementEntity {
+public class EquipmentEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,13 +49,16 @@ public class EquipementEntity {
   @Column(name = "accessories")
   private String accessories;
 
-  @Column(name = "equipement_type")
-  private String equipementType;
+  @Column(name = "equipment_type")
+  private String equipmentType;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "id_provider", referencedColumnName = "id")
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name = "id_provider", nullable = false, foreignKey = @ForeignKey(name = "FK_EQUIPMENT_PROVIDER"))
   private ProviderEntity provider;
 
-  @OneToMany(mappedBy = "equipement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<ManteinanceEntity> maintenance;
+  @OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<MaintenanceEntity> maintenance;
+
+  @OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<TicketEntity> ticketList;
 }

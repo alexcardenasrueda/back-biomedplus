@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProviderTranslator {
 
-  public ProviderEntity proveedorDtoToProveedorEntityT(ProviderDto providerDto) {
+  public ProviderEntity providerDtoToProviderEntityT(ProviderDto providerDto) {
     return ProviderEntity.builder()
-        .name(providerDto.getNombre().toUpperCase())
-        .phone(providerDto.getTelefono())
-        .city(providerDto.getCiudad())
-        .address(providerDto.getDireccion().toUpperCase())
+        .name(providerDto.getName().toUpperCase())
+        .phone(providerDto.getTelephone())
+        .city(providerDto.getCity())
+        .address(providerDto.getAddress().toUpperCase())
         .build();
   }
 }

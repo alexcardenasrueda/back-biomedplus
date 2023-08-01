@@ -10,20 +10,19 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SpareTranslator {
 
-  private final ProviderTranslator providerTranslator;
-  public SpareEntity setRepuestoDtoToRepuestoEntity (SpareEntity repuestoEntity, SpareDto spareDto){
-      repuestoEntity.setName(spareDto.getNombre().toUpperCase());
-      repuestoEntity.setBrand(spareDto.getMarca().toUpperCase());
-      repuestoEntity.setModel(spareDto.getModelo().toUpperCase());
-      repuestoEntity.setItem(spareDto.getItem().toUpperCase());
-      repuestoEntity.setCodeReference(spareDto.getReferencia().toUpperCase());
-      repuestoEntity.setSeries(spareDto.getSerie().toUpperCase());
-      repuestoEntity.setService(spareDto.getServicio().toUpperCase());
-      repuestoEntity.setQuantity(spareDto.getCantidad());
-      repuestoEntity.setPrice(spareDto.getPrecio());
-      ProviderEntity proveedor = new ProviderEntity();
-      proveedor.setId(spareDto.getProveedorID());
-      repuestoEntity.setProvider(proveedor);
-      return repuestoEntity;
+  public SpareEntity setSpareDtoToSpareEntity (SpareEntity spareEntity, SpareDto spareDto){
+      spareEntity.setName(spareDto.getName().toUpperCase());
+      spareEntity.setBrand(spareDto.getBrand().toUpperCase());
+      spareEntity.setModel(spareDto.getModel().toUpperCase());
+      spareEntity.setItem(spareDto.getItem().toUpperCase());
+      spareEntity.setCodeReference(spareDto.getReference().toUpperCase());
+      spareEntity.setSeries(spareDto.getSeries().toUpperCase());
+      spareEntity.setService(spareDto.getService().toUpperCase());
+      spareEntity.setQuantity(spareDto.getQuantity());
+      spareEntity.setPrice(spareDto.getPrice());
+      ProviderEntity provider = new ProviderEntity();
+      provider.setId(spareDto.getProvider().getId());
+      spareEntity.setProvider(provider);
+      return spareEntity;
   }
 }

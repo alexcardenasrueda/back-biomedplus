@@ -19,8 +19,8 @@ import lombok.ToString;
 public class ProviderDto {
 
   private Long id;
-  private String nombre;
-  private String telefono;
-  private String ciudad;
-  private String direccion;
+  private String name;
+  private String telephone;
+  private String city;
+  private String address;
 }
