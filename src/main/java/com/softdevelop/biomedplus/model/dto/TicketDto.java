@@ -25,7 +25,6 @@ public class TicketDto implements Serializable {
     @NotBlank(message = "The ticket creation_date cannot be empty")
     private String creationDate;
 
-    @NotBlank(message = "The ticket close_date cannot be empty")
     private String closeDate;
 
     @NotBlank(message = "The ticket img cannot be empty")
