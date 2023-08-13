@@ -10,6 +10,7 @@ import com.softdevelop.biomedplus.model.entity.SpareEntity;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.MaintenanceRepository;
 
+import com.softdevelop.biomedplus.repository.ProviderRepository;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -35,14 +36,14 @@ public class EquipmentServiceImpl implements EquipmentService {
   private final EquipmentTranslator equipmentTranslator;
 
   private final ModelMapper modelMapper;
-
+  private final ProviderRepository providerRepository;
 
 
   @Override
   public Long createEquipment(EquipmentDto equipmentDto) {
     long idEquipment;
     try{
-      Boolean exist = equipmentRepository.existsById(equipmentDto.getProvider().getId());
+      Boolean exist = providerRepository.existsById(equipmentDto.getProvider().getId());
       if (!exist) {
         throw new NotFoundException("Provider not found");
       }

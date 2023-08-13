@@ -1,10 +1,8 @@
 package com.softdevelop.biomedplus.controller;
 
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.service.TicketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
