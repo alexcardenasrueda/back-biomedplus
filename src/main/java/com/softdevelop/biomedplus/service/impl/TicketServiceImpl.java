@@ -1,29 +1,30 @@
 package com.softdevelop.biomedplus.service.impl;
 
+import static com.softdevelop.biomedplus.util.Constants.INIT_LOG;
+import static com.softdevelop.biomedplus.util.Constants.NOT_FOUND_TICKETS;
+
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
-import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
-import com.softdevelop.biomedplus.model.entity.SpareEntity;
 import com.softdevelop.biomedplus.model.entity.TicketEntity;
 import com.softdevelop.biomedplus.repository.StatusRepository;
 import com.softdevelop.biomedplus.repository.UserRepository;
 import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.TicketRepository;
-import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
 import com.softdevelop.biomedplus.service.translator.TicketTranslator;
+import com.softdevelop.biomedplus.util.Logger;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
@@ -36,11 +37,17 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketDto> getTickets() throws GenericException {
 
-        List<TicketDto> ticketsRs = new ArrayList<>();
+        log.info(Logger.builder()
+            .action(INIT_LOG)
+            .className(this.getClass().getSimpleName())
+            .build().toString());
+
+        List<TicketDto> ticketsRs;
         try {
-            List<TicketEntity> allTickets = (List<TicketEntity>) ticketRepository.findAll();
+            List<TicketEntity> allTickets = ticketRepository.findAllActiveTickets();
       if (allTickets.isEmpty()) {
-                throw new NotFoundException("Tickets not found");
+          log.error(NOT_FOUND_TICKETS);
+                throw new NotFoundException(NOT_FOUND_TICKETS);
             }
             ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {
             }.getType());
@@ -54,7 +61,7 @@ public class TicketServiceImpl implements TicketService {
     public Long createTicket(TicketDto ticketDto) {
         long idTicket;
         try{
-            Boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
+            boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
             if (!exist) {
                 throw new NotFoundException("Equipment not found");
             }
@@ -83,7 +90,7 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto updateTicket(Long id, TicketDto ticketDto) {
         TicketDto ticketSavedDto;
         try{
-            Boolean exist = ticketRepository.existsById(id);
+            boolean exist = ticketRepository.existsById(id);
             if (!exist) {
                 throw new NotFoundException("Ticket not found");
             }
