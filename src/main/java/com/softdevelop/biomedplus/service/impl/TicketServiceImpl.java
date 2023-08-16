@@ -3,6 +3,7 @@ package com.softdevelop.biomedplus.service.impl;
 import static com.softdevelop.biomedplus.util.Constants.INIT_LOG;
 import static com.softdevelop.biomedplus.util.Constants.NOT_FOUND_TICKETS;
 
+import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
@@ -47,6 +48,29 @@ public class TicketServiceImpl implements TicketService {
             List<TicketEntity> allTickets = ticketRepository.findAllActiveTickets();
       if (allTickets.isEmpty()) {
           log.error(NOT_FOUND_TICKETS);
+                throw new NotFoundException(NOT_FOUND_TICKETS);
+            }
+            ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {
+            }.getType());
+        } catch (RuntimeException e) {
+            throw new GenericException(e.getMessage());
+        }
+        return ticketsRs;
+    }
+
+    @Override
+    public List<TicketDto> getTicketsCreated() throws GenericException {
+        log.info(Logger.builder()
+                .action(INIT_LOG)
+                .className(this.getClass().getSimpleName())
+                .build().toString());
+
+        List<TicketDto> ticketsRs;
+        try {
+            List<TicketEntity> allTickets = ticketRepository.findByStatusName(Status.CREATED.name());
+
+            if (allTickets.isEmpty()) {
+                log.error(NOT_FOUND_TICKETS);
                 throw new NotFoundException(NOT_FOUND_TICKETS);
             }
             ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {

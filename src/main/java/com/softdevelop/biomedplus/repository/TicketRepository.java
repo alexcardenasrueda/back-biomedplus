@@ -19,4 +19,6 @@ public interface TicketRepository extends CrudRepository<TicketEntity, Long> {
 
   @Query(value = FIND_ALL_ACTIVE_TICKETS)
   List<TicketEntity> findAllActiveTickets();
+
+  List<TicketEntity> findByStatusName(String status);
 }
