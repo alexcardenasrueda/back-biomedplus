@@ -41,10 +41,4 @@ public class EquipmentController {
     EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq);
     return ResponseEntity.ok(equipmentRs);
   }
-
-  @GetMapping("/next-maintenance")
-  public ResponseEntity<List<NextMaintenanceEquipmentDto>> nextMaintenance() {
-    return ResponseEntity.ok(equipmentService.nextMaintenanceProducts());
-  }
-
 }
