@@ -15,6 +15,4 @@ public interface EquipmentService {
 
   List<EquipmentDto> getEquipments() throws GenericException;
 
-  List<NextMaintenanceEquipmentDto> nextMaintenanceProducts();
-
 }

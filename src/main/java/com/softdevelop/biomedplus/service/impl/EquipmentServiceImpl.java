@@ -1,9 +1,11 @@
 package com.softdevelop.biomedplus.service.impl;
 
+import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.NextMaintenanceEquipmentDto;
+import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 import com.softdevelop.biomedplus.model.entity.MaintenanceEntity;
 import com.softdevelop.biomedplus.model.entity.SpareEntity;
@@ -30,8 +32,6 @@ import org.springframework.stereotype.Service;
 public class EquipmentServiceImpl implements EquipmentService {
 
   private final EquipmentRepository equipmentRepository;
-
-  private final MaintenanceRepository maintenanceRepository;
 
   private final EquipmentTranslator equipmentTranslator;
 
@@ -85,24 +85,5 @@ public class EquipmentServiceImpl implements EquipmentService {
       throw new GenericException(e.getMessage());
     }
     return equipments;
-  }
-
-  @Override
-  public List<NextMaintenanceEquipmentDto> nextMaintenanceProducts() {
-    List<MaintenanceEntity> mantenimientos = maintenanceRepository.
-            findByEstimatedDateLessThanEqualAndDoneDateIsNull(LocalDate.now().plusDays(30));
-    List<NextMaintenanceEquipmentDto> proximosMantenimientos = new ArrayList<NextMaintenanceEquipmentDto>();
-    for (MaintenanceEntity mantenimiento: mantenimientos) {
-        proximosMantenimientos.add(new NextMaintenanceEquipmentDto(mantenimiento.getEquipment().getId(),
-                mantenimiento.getEquipment().getName(),
-                mantenimiento.getEquipment().getBrand(),
-                mantenimiento.getEquipment().getModel(),
-                mantenimiento.getEquipment().getSeries(),
-                mantenimiento.getEquipment().getService(),
-                mantenimiento.getEquipment().getArea(),
-                mantenimiento.getEquipment().getEquipmentType(),
-                mantenimiento.getEquipment().toString()));
-    }
-    return proximosMantenimientos;
   }
 }

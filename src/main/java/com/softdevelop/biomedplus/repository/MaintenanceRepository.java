@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MaintenanceRepository extends CrudRepository<MaintenanceEntity, Long> {
 
-    List<MaintenanceEntity> findByEstimatedDateLessThanEqualAndDoneDateIsNull(LocalDate startDate);
+    List<MaintenanceEntity> findByEstimatedDateLessThanEqualAndStatusNameAndDoneDateIsNull(LocalDate startDate, String status);
 }
