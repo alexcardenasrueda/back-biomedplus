@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface TicketService {
     List<TicketDto> getTickets() throws GenericException;
+    List<TicketDto> getTicketsCreated() throws GenericException;
     Long createTicket(TicketDto ticketDto);
 
     TicketDto updateTicket(Long id, TicketDto ticketDto);
