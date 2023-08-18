@@ -143,6 +143,5 @@ public class TicketServiceImpl implements TicketService {
             throw new GenericException(e.getMessage());
         }
         return ticketSavedDto;
-
     }
 }

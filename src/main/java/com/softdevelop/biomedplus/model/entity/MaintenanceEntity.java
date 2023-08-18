@@ -19,9 +19,9 @@ public class MaintenanceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "estimated_date")
-    private LocalDate estimatedDate;
+    private String estimatedDate;
     @Column(name = "done_date")
-    private LocalDate doneDate;
+    private String doneDate;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_equipment", nullable = false, foreignKey = @ForeignKey(name = "FK_MAINTENANCE_EQUIPMENT"))
