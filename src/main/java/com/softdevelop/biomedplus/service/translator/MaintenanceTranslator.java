@@ -10,13 +10,20 @@ import com.softdevelop.biomedplus.model.entity.StatusEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static com.softdevelop.biomedplus.util.Constants.FORMAT_DATE;
+
 @Component
 @RequiredArgsConstructor
 public class MaintenanceTranslator {
 
   public MaintenanceEntity setMaintenanceDtoToMaintenanceEntity (MaintenanceEntity maintenanceEntity, MaintenanceDto maintenanceDto){
-      maintenanceEntity.setEstimatedDate(maintenanceDto.getEstimatedDate());
-      maintenanceEntity.setDoneDate(maintenanceDto.getDoneDate());
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE);
+      maintenanceEntity.setEstimatedDate(LocalDate.parse(maintenanceDto.getEstimatedDate(), formatter));
+      maintenanceEntity.setDoneDate(LocalDate.parse(maintenanceDto.getDoneDate(), formatter));
       EquipmentEntity equipment = new EquipmentEntity();
       equipment.setId(maintenanceDto.getEquipment().getId());
       maintenanceEntity.setEquipment(equipment);

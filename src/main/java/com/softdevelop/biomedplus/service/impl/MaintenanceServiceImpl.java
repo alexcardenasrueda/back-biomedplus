@@ -20,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,8 @@ public class MaintenanceServiceImpl implements MaintenanceService {
   @Override
   public List<NextMaintenanceEquipmentDto> nextExpected() {
     List<MaintenanceEntity> maintenances = maintenanceRepository.
-            findByEstimatedDateLessThanEqualAndStatusNameAndDoneDateIsNull(LocalDate.now().plusDays(30),
+            findByEstimatedDateLessThanEqualAndStatusNameAndDoneDateIsNull(
+                    LocalDate.now().plusDays(30),
                     Status.CREATED.name());
     List<NextMaintenanceEquipmentDto> nextMaintenance = new ArrayList<NextMaintenanceEquipmentDto>();
 
