@@ -23,7 +23,9 @@ public class MaintenanceTranslator {
   public MaintenanceEntity setMaintenanceDtoToMaintenanceEntity (MaintenanceEntity maintenanceEntity, MaintenanceDto maintenanceDto){
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE);
       maintenanceEntity.setEstimatedDate(LocalDate.parse(maintenanceDto.getEstimatedDate(), formatter));
-      maintenanceEntity.setDoneDate(LocalDate.parse(maintenanceDto.getDoneDate(), formatter));
+      if (maintenanceDto.getDoneDate() != null) {
+          maintenanceEntity.setDoneDate(LocalDate.parse(maintenanceDto.getDoneDate(), formatter));
+      }
       EquipmentEntity equipment = new EquipmentEntity();
       equipment.setId(maintenanceDto.getEquipment().getId());
       maintenanceEntity.setEquipment(equipment);

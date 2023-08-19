@@ -12,6 +12,7 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class NextMaintenanceEquipmentDto {
   private Long id;
+  private Long idEquipment;
   private String name;
   private String brand;
   private String model;

@@ -52,6 +52,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     for (MaintenanceEntity maintenance: maintenances) {
       nextMaintenance.add(new NextMaintenanceEquipmentDto(
+              maintenance.getId(),
               maintenance.getEquipment().getId(),
               maintenance.getEquipment().getName(),
               maintenance.getEquipment().getBrand(),
