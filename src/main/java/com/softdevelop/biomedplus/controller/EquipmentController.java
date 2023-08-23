@@ -1,9 +1,9 @@
 package com.softdevelop.biomedplus.controller;
 
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
-import com.softdevelop.biomedplus.model.dto.NextMaintenanceEquipmentDto;
 import com.softdevelop.biomedplus.service.EquipmentService;
 
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import java.net.URI;
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class EquipmentController {
 
   private final EquipmentService equipmentService;
 
+
   @GetMapping()
   public ResponseEntity<List<EquipmentDto>> getEquipments() {
     List<EquipmentDto> equipments = equipmentService.getEquipments();
@@ -29,6 +30,11 @@ public class EquipmentController {
 
   @PostMapping()
   public ResponseEntity<Long> createEquipment(@Valid @RequestBody EquipmentDto equipmentRq) {
+    LoggerEvent.info()
+        .forClass(EquipmentController.class)
+        .withField("Action: ", "createEquipment")
+        .withField("EquipmentRequest", equipmentRq)
+        .log();
     Long equipmentSaved = equipmentService.createEquipment(equipmentRq);
     return ResponseEntity.created(URI.create(String.format("equipments/%s", equipmentSaved))).build();
   }
