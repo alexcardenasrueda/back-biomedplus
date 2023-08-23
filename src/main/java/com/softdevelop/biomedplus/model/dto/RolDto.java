@@ -1,14 +1,12 @@
 package com.softdevelop.biomedplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.io.Serializable;
-import java.math.BigInteger;
 
 @Getter
 @Builder

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -47,6 +46,5 @@ public class EquipmentDto implements Serializable {
   @NotBlank(message = "The type of equipment cannot be empty")
   private String equipmentType;
 
-  @NotNull(message = "The provider of equipment cannot be empty")
   private ProviderDto provider;
 }

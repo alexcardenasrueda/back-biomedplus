@@ -1,6 +1,5 @@
 package com.softdevelop.biomedplus.service.impl;
 
-import static com.softdevelop.biomedplus.util.Constants.INIT_LOG;
 import static com.softdevelop.biomedplus.util.Constants.NOT_FOUND_TICKETS;
 
 import com.softdevelop.biomedplus.enums.Status;
@@ -14,7 +13,7 @@ import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.TicketRepository;
 import com.softdevelop.biomedplus.service.translator.TicketTranslator;
-import com.softdevelop.biomedplus.util.Logger;
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -38,10 +37,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketDto> getTickets() throws GenericException {
 
-        log.info(Logger.builder()
-            .action(INIT_LOG)
-            .className(this.getClass().getSimpleName())
-            .build().toString());
+        LoggerEvent.info()
+            .forClass(TicketServiceImpl.class)
+            .withField("Action: ", "getAllTickets")
+            .log();
 
         List<TicketDto> ticketsRs;
         try {
@@ -60,10 +59,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketDto> getTicketsCreated() throws GenericException {
-        log.info(Logger.builder()
-                .action(INIT_LOG)
-                .className(this.getClass().getSimpleName())
-                .build().toString());
+        LoggerEvent.info()
+            .forClass(TicketServiceImpl.class)
+            .withField("Action: ", "getTicketsCreated")
+            .log();
 
         List<TicketDto> ticketsRs;
         try {

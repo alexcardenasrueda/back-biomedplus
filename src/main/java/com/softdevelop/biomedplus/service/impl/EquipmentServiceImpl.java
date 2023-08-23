@@ -1,27 +1,16 @@
 package com.softdevelop.biomedplus.service.impl;
 
-import com.softdevelop.biomedplus.enums.Status;
-import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.exception.GenericException;
+import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
-import com.softdevelop.biomedplus.model.dto.NextMaintenanceEquipmentDto;
-import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
-import com.softdevelop.biomedplus.model.entity.MaintenanceEntity;
-import com.softdevelop.biomedplus.model.entity.SpareEntity;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
-import com.softdevelop.biomedplus.repository.MaintenanceRepository;
-
 import com.softdevelop.biomedplus.repository.ProviderRepository;
-import java.time.LocalDate;
-
+import com.softdevelop.biomedplus.service.EquipmentService;
+import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import com.softdevelop.biomedplus.service.EquipmentService;
-import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
-import com.softdevelop.biomedplus.service.translator.SpareTranslator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;

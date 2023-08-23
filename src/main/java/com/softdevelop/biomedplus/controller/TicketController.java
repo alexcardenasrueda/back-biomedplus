@@ -1,10 +1,8 @@
 package com.softdevelop.biomedplus.controller;
 
-import static com.softdevelop.biomedplus.util.Constants.INIT_LOG;
-
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.service.TicketService;
-import com.softdevelop.biomedplus.util.Logger;
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +24,10 @@ public class TicketController {
   @GetMapping()
   public ResponseEntity<List<TicketDto>> getTickets() {
 
-    log.info(Logger.builder()
-            .action(INIT_LOG)
-            .className(this.getClass().getSimpleName())
-        .build().toString());
+    LoggerEvent.info()
+        .forClass(TicketController.class)
+        .withField("Action: ", "getTickets")
+        .log();
     List<TicketDto> requests = ticketService.getTickets();
     return ResponseEntity.ok(requests);
   }

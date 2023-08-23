@@ -1,15 +1,11 @@
 package com.softdevelop.biomedplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
-import com.softdevelop.biomedplus.model.entity.StatusEntity;
 import lombok.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Getter
 @Setter
