@@ -7,4 +7,6 @@ public class Constants {
   public static final  String END_LOG = "Action - end";
   public static final  String NOT_FOUND_TICKETS = "Tickets not found";
 
+  public static final String FORMAT_DATE = "yyyy-MM-dd";
+
 }

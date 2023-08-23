@@ -20,4 +20,5 @@ public class StatusDto implements Serializable {
 
     private Long id;
     private Status name;
+
 }
