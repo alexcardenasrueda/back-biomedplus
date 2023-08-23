@@ -1,13 +1,15 @@
 package com.softdevelop.biomedplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.softdevelop.biomedplus.enums.Status;
-import lombok.*;
-
+import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.math.BigInteger;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter

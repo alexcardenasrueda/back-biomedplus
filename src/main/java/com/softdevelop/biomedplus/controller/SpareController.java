@@ -1,6 +1,5 @@
 package com.softdevelop.biomedplus.controller;
 
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.service.SpareService;
 import lombok.RequiredArgsConstructor;
