@@ -9,10 +9,11 @@ import java.util.List;
 
 public interface EquipmentService {
 
-  Long createEquipment(EquipmentDto equipmentDto);
+  EquipmentDto createEquipment(EquipmentDto equipmentDto);
 
   EquipmentDto updateEquipment(Long id, EquipmentDto equipmentDto);
 
   List<EquipmentDto> getEquipments() throws GenericException;
 
+  void deleteEquipment(Long id);
 }

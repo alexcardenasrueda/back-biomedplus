@@ -22,7 +22,7 @@ public class ProviderDto implements Serializable {
   private static final long serialVersionUID = 9197301669637501673L;
   private Long id;
   private String name;
-  private String telephone;
+  private String phone;
   private String city;
   private String address;
 }

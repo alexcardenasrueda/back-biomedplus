@@ -36,4 +36,11 @@ public class SpareController {
     SpareDto spareRs = spareService.updateSpare(id, spareRq);
     return ResponseEntity.ok(spareRs);
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteSpare(
+      @PathVariable("id") Long id) {
+    spareService.deleteSpare(id);
+    return ResponseEntity.ok("Spare deleted");
+  }
 }
