@@ -44,7 +44,7 @@ public class TicketServiceImpl implements TicketService {
 
         List<TicketDto> ticketsRs;
         try {
-            List<TicketEntity> allTickets = ticketRepository.findAllActiveTickets();
+            List<TicketEntity> allTickets = ticketRepository.findAll();
       if (allTickets.isEmpty()) {
           log.error(NOT_FOUND_TICKETS);
                 throw new NotFoundException(NOT_FOUND_TICKETS);
