@@ -2,6 +2,7 @@ package com.softdevelop.biomedplus.repository;
 
 import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,5 @@ public interface EquipmentRepository extends CrudRepository<EquipmentEntity, Lon
   @Override
   Optional<EquipmentEntity> findById(Long aLong);
 
+  List<EquipmentEntity> findAllByOrderByNameAsc();
 }

@@ -29,14 +29,14 @@ public class EquipmentController {
   }
 
   @PostMapping()
-  public ResponseEntity<Long> createEquipment(@Valid @RequestBody EquipmentDto equipmentRq) {
+  public ResponseEntity<EquipmentDto> createEquipment(@Valid @RequestBody EquipmentDto equipmentRq) {
     LoggerEvent.info()
         .forClass(EquipmentController.class)
         .withField("Action: ", "createEquipment")
         .withField("EquipmentRequest", equipmentRq)
         .log();
-    Long equipmentSaved = equipmentService.createEquipment(equipmentRq);
-    return ResponseEntity.created(URI.create(String.format("equipments/%s", equipmentSaved))).build();
+    EquipmentDto equipment = equipmentService.createEquipment(equipmentRq);
+    return ResponseEntity.ok(equipment);
   }
 
   @PutMapping("/{id}")
@@ -44,5 +44,12 @@ public class EquipmentController {
           @PathVariable("id") Long id, @Valid @RequestBody EquipmentDto equipmentRq) {
     EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq);
     return ResponseEntity.ok(equipmentRs);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteEquipment(
+      @PathVariable("id") Long id) {
+    equipmentService.deleteEquipment(id);
+    return ResponseEntity.ok("Equipment deleted");
   }
 }

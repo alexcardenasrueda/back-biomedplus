@@ -12,4 +12,5 @@ public interface SpareService {
 
     List<SpareDto> getSpares();
 
+    void deleteSpare(Long id);
 }

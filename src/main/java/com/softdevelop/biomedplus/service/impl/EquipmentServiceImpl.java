@@ -29,22 +29,23 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 
   @Override
-  public Long createEquipment(EquipmentDto equipmentDto) {
-    long idEquipment;
+  public EquipmentDto createEquipment(EquipmentDto equipmentDto) {
+
+    EquipmentEntity save;
     try{
       Boolean exist = providerRepository.existsById(equipmentDto.getProvider().getId());
-      if (!exist) {
+      if (Boolean.FALSE.equals(exist)) {
         throw new NotFoundException("Provider not found");
       }
 
       EquipmentEntity equipmentEntity = new EquipmentEntity();
-      EquipmentEntity equipmentSaved = equipmentRepository.save(
-              equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity, equipmentDto));
-      idEquipment = equipmentSaved.getId();
+      save = equipmentRepository.save(
+          equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity, equipmentDto));
+
     }catch (RuntimeException e ){
       throw new GenericException(e.getMessage());
     }
-    return idEquipment;
+    return modelMapper.map(save, EquipmentDto.class);
   }
 
   @Override
@@ -52,7 +53,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     Optional<EquipmentEntity> equipmentEntity = equipmentRepository.findById(id);
     if (equipmentEntity.isEmpty()) {
-      return null;
+      throw new NotFoundException("Equipment not found");
     }
     EquipmentEntity equipmentUpdated = equipmentRepository.save(
         equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity.get(), equipmentRq));
@@ -61,10 +62,10 @@ public class EquipmentServiceImpl implements EquipmentService {
 
   @Override
   public List<EquipmentDto> getEquipments() throws GenericException {
-    List<EquipmentDto> equipments = new ArrayList<>();
+    List<EquipmentDto> equipments;
 
     try {
-      List<EquipmentEntity> allEquipments = (List<EquipmentEntity>) equipmentRepository.findAll();
+      List<EquipmentEntity> allEquipments = equipmentRepository.findAllByOrderByNameAsc();
       if (allEquipments == null || allEquipments.isEmpty()) {
         throw new NotFoundException("Equipments not found");
       }
@@ -74,5 +75,14 @@ public class EquipmentServiceImpl implements EquipmentService {
       throw new GenericException(e.getMessage());
     }
     return equipments;
+  }
+
+  @Override
+  public void deleteEquipment(Long id) {
+    try {
+      equipmentRepository.deleteById(id);
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
+    }
   }
 }
