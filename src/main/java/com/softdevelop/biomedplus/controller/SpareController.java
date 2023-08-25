@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @CrossOrigin
@@ -25,9 +24,9 @@ public class SpareController {
   }
 
   @PostMapping()
-  public ResponseEntity<Long> createSpare(@Valid @RequestBody SpareDto spareRq) {
-    Long spareSaved = spareService.createSpare(spareRq);
-    return ResponseEntity.created(URI.create(String.format("spares/%s", spareSaved))).build();
+  public ResponseEntity<SpareDto> createSpare(@Valid @RequestBody SpareDto spareRq) {
+    SpareDto resp = spareService.createSpare(spareRq);
+    return ResponseEntity.ok(resp);
   }
 
   @PutMapping("/{id}")

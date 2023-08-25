@@ -15,7 +15,7 @@ public class SpareTranslator {
       spareEntity.setBrand(spareDto.getBrand().toUpperCase());
       spareEntity.setModel(spareDto.getModel().toUpperCase());
       spareEntity.setItem(spareDto.getItem().toUpperCase());
-      spareEntity.setCodeReference(spareDto.getReference().toUpperCase());
+      spareEntity.setCodeReference(spareDto.getCodeReference().toUpperCase());
       spareEntity.setSeries(spareDto.getSeries().toUpperCase());
       spareEntity.setService(spareDto.getService().toUpperCase());
       spareEntity.setQuantity(spareDto.getQuantity());

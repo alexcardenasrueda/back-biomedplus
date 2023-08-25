@@ -28,22 +28,21 @@ public class SpareServiceImpl implements SpareService {
 
 
     @Override
-    public Long createSpare(SpareDto spareDto) {
-        long idSpare;
+    public SpareDto createSpare(SpareDto spareDto) {
+
         try{
+
             boolean exist = providerRepository.existsById(spareDto.getProvider().getId());
             if (!exist) {
                 throw new NotFoundException("Provider not found");
             }
-
             SpareEntity spareEntity = new SpareEntity();
-            SpareEntity spareSaved = spareRepository.save(
-                    spareTranslator.setSpareDtoToSpareEntity(spareEntity, spareDto));
-            idSpare = spareSaved.getId();
-        }catch (RuntimeException e ){
+            SpareEntity spareEntitySaved = spareRepository.save(
+                spareTranslator.setSpareDtoToSpareEntity(spareEntity, spareDto));
+            return modelMapper.map(spareEntitySaved, SpareDto.class);
+        } catch (RuntimeException e ){
             throw new GenericException(e.getMessage());
         }
-        return idSpare;
     }
 
     @Override
