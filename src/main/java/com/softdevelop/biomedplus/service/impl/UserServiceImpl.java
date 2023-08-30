@@ -2,8 +2,10 @@ package com.softdevelop.biomedplus.service.impl;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
+import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.model.dto.UserDto;
+import com.softdevelop.biomedplus.model.entity.SpareEntity;
 import com.softdevelop.biomedplus.model.entity.TicketEntity;
 import com.softdevelop.biomedplus.model.entity.UserEntity;
 import com.softdevelop.biomedplus.repository.*;
@@ -45,6 +47,21 @@ public class UserServiceImpl implements UserService {
             throw new GenericException(e.getMessage());
         }
         return idUser;
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+        UserDto user = new UserDto();
+        try {
+            List<UserEntity> users = userRepository.findAllByEmail(email);
+            if (users == null || users.isEmpty()) {
+                throw new NotFoundException("User not found");
+            }
+            user = modelMapper.map(users.get(0), UserDto.class );
+        } catch (RuntimeException e) {
+            throw new GenericException(e.getMessage());
+        }
+        return user;
     }
 
 }

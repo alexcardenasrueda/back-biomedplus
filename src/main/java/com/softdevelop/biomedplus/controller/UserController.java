@@ -33,5 +33,13 @@ public class UserController {
     return ResponseEntity.created(URI.create(String.format("users/%s", userSaved))).build();
   }
 
+  @GetMapping("/email/{email}")
+  public ResponseEntity<UserDto> getUserByEmail(
+          @PathVariable("email") String email) {
+    UserDto user = userService.getUserByEmail(email);
+    return ResponseEntity.ok(user);
+  }
+
+
 
 }
