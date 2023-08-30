@@ -4,6 +4,8 @@ import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.model.dto.UserDto;
 import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.service.UserService;
+import com.softdevelop.biomedplus.service.impl.ProviderServiceImpl;
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,11 @@ public class UserController {
 
   @PostMapping()
   public ResponseEntity<Long> createUser(@Valid @RequestBody UserDto userRq) {
+    LoggerEvent.info()
+        .forClass(UserController.class)
+        .withField("Action: ", "createUser")
+        .withField("UserRequest - ", userRq)
+        .log();
     Long userSaved = userService.createUser(userRq);
     return ResponseEntity.created(URI.create(String.format("users/%s", userSaved))).build();
   }

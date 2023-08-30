@@ -2,7 +2,6 @@ package com.softdevelop.biomedplus.service.impl;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.ProviderDto;
 import com.softdevelop.biomedplus.model.entity.ProviderEntity;
 import com.softdevelop.biomedplus.repository.ProviderRepository;
