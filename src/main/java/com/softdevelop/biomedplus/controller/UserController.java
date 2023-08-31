@@ -21,9 +21,9 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping()
-  public ResponseEntity<Long> createUser(@Valid @RequestBody UserDto userRq) {
-    Long userSaved = userService.createUser(userRq);
-    return ResponseEntity.created(URI.create(String.format("users/%s", userSaved))).build();
+  public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userRq) {
+    UserDto userSaved = userService.createUser(userRq);
+    return ResponseEntity.ok(userSaved);
   }
 
   @GetMapping("/email/{email}")

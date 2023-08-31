@@ -22,7 +22,7 @@ public class UserDto implements Serializable {
 
     private Long id;
     private String name;
-    private String psw;
+    private String pass;
     private String email;
     private RolDto rol;
 }

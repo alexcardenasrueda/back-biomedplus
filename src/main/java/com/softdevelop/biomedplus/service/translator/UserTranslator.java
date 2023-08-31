@@ -13,7 +13,7 @@ public class UserTranslator {
   public UserEntity setUserDtoToUserEntity (UserEntity userEntity, UserDto userDto){
       userEntity.setName(userDto.getName().toUpperCase());
       userEntity.setEmail(userDto.getEmail().toUpperCase());
-      userEntity.setPass(userDto.getPsw());
+      userEntity.setPass(userDto.getPass());
       RolEntity rol = new RolEntity();
       rol.setId(userDto.getRol().getId());
       userEntity.setRol(rol);
