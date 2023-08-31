@@ -2,6 +2,7 @@ package com.softdevelop.biomedplus.service.impl;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
+import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.model.dto.UserDto;
@@ -31,22 +32,26 @@ public class UserServiceImpl implements UserService {
     private final UserTranslator userTranslator;
 
     @Override
-    public Long createUser(UserDto userDto) {
-        long idUser;
+    public UserDto createUser(UserDto userDto) {
+        UserEntity userSaved = new UserEntity();
         try{
+            List<UserEntity> users = userRepository.findAllByEmail(userDto.getEmail());
+            if (!users.isEmpty()) {
+                throw new NotFoundException("User already exist");
+            }
+
             Boolean exist = rolRepository.existsById(userDto.getRol().getId());
             if (!exist) {
                 throw new NotFoundException("Rol not found");
             }
 
             UserEntity userEntity = new UserEntity();
-            UserEntity userSaved = userRepository.save(
+            userSaved = userRepository.save(
                     userTranslator.setUserDtoToUserEntity(userEntity, userDto));
-            idUser = userSaved.getId();
         }catch (RuntimeException e ){
             throw new GenericException(e.getMessage());
         }
-        return idUser;
+        return modelMapper.map(userSaved, UserDto.class);
     }
 
     @Override
