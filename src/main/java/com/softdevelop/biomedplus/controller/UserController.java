@@ -26,10 +26,11 @@ public class UserController {
     return ResponseEntity.ok(userSaved);
   }
 
-  @GetMapping("/email/{email}")
+  @GetMapping("/email/{email}/{pass}")
   public ResponseEntity<UserDto> getUserByEmail(
-          @PathVariable("email") String email) {
-    UserDto user = userService.getUserByEmail(email);
+          @PathVariable("email") String email,
+          @PathVariable("pass") String pass) {
+    UserDto user = userService.getUserByEmail(email, pass);
     return ResponseEntity.ok(user);
   }
 
