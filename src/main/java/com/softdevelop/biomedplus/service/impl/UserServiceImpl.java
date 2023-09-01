@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         try{
             List<UserEntity> users = userRepository.findAllByEmail(userDto.getEmail());
             if (!users.isEmpty()) {
-                throw new NotFoundException("User already exist");
+                throw new NotFoundException("User email already exist");
             }
 
             Boolean exist = rolRepository.existsById(userDto.getRol().getId());
@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByEmail(String email) {
+    public UserDto getUserByEmail(String email, String pass) {
         UserDto user = new UserDto();
         try {
-            List<UserEntity> users = userRepository.findAllByEmail(email);
+            List<UserEntity> users = userRepository.findAllByEmailAndPass(email, pass);
             if (users == null || users.isEmpty()) {
-                throw new NotFoundException("User not found");
+                throw new NotFoundException("User or pass incorrect");
             }
             user = modelMapper.map(users.get(0), UserDto.class );
         } catch (RuntimeException e) {

@@ -10,7 +10,5 @@ import java.util.List;
 public interface UserService {
     UserDto createUser(UserDto userDto);
 
-    UserDto getUserByEmail(String email);
-
-
+    UserDto getUserByEmail(String email, String pass);
 }
