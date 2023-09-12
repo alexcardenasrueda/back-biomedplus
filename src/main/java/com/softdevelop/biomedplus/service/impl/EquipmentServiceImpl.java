@@ -1,9 +1,13 @@
 package com.softdevelop.biomedplus.service.impl;
 
+import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
+import com.softdevelop.biomedplus.model.dto.MaintenanceDto;
+import com.softdevelop.biomedplus.model.dto.StatusDto;
 import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
+import com.softdevelop.biomedplus.model.entity.MaintenanceEntity;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.ProviderRepository;
 import com.softdevelop.biomedplus.service.EquipmentService;
@@ -62,15 +66,29 @@ public class EquipmentServiceImpl implements EquipmentService {
 
   @Override
   public List<EquipmentDto> getEquipments() throws GenericException {
-    List<EquipmentDto> equipments;
+    List<EquipmentDto> equipments = new ArrayList<>();
 
     try {
       List<EquipmentEntity> allEquipments = equipmentRepository.findAllByOrderByNameAsc();
       if (allEquipments == null || allEquipments.isEmpty()) {
         throw new NotFoundException("Equipments not found");
       }
-      equipments = modelMapper.map(allEquipments, new TypeToken<List<EquipmentDto>>() {
-      }.getType());
+
+      for(EquipmentEntity equipment :allEquipments) {
+        EquipmentDto equipmentDto = modelMapper.map(equipment, EquipmentDto.class);
+        for(MaintenanceEntity maintenance : equipment.getMaintenances()) {
+          if (maintenance.getDoneDate() == null ) {
+            MaintenanceDto maintenanceDto = new MaintenanceDto();
+            maintenanceDto.setId(maintenance.getId());
+            maintenanceDto.setEstimatedDate(maintenance.getEstimatedDate().toString());
+            maintenanceDto.setStatus(new StatusDto(maintenance.getStatus().getId(),
+                   Status.GetStatusByName(maintenance.getStatus().getName())));
+            equipmentDto.setNextMaintenance(maintenanceDto);
+            break;
+          }
+        }
+        equipments.add(equipmentDto);
+      }
     } catch (RuntimeException e) {
       throw new GenericException(e.getMessage());
     }

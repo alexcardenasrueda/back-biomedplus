@@ -1,6 +1,7 @@
 package com.softdevelop.biomedplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.softdevelop.biomedplus.model.entity.MaintenanceEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -47,4 +48,6 @@ public class EquipmentDto implements Serializable {
   private String equipmentType;
 
   private ProviderDto provider;
+
+  private MaintenanceDto nextMaintenance;
 }

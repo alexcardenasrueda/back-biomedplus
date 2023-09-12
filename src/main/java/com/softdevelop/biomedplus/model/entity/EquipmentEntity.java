@@ -57,7 +57,7 @@ public class EquipmentEntity {
   private ProviderEntity provider;
 
   @OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<MaintenanceEntity> maintenance;
+  private List<MaintenanceEntity> maintenances;
 
   @OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<TicketEntity> ticketList;
