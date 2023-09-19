@@ -19,7 +19,7 @@ public class SpareDto {
     private String series;
     private String service;
     private String item;
-    private String reference;
+    private String codeReference;
     private Integer quantity;
     private Long price;
 

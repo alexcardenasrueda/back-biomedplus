@@ -73,6 +73,20 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.13.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.liferay/com.fasterxml.jackson.databind -->
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.fasterxml.jackson.databind</artifactId>
+			<version>2.10.5.1.LIFERAY-PATCHED-1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/dev.mccue/guava-io -->
+		<dependency>
+			<groupId>dev.mccue</groupId>
+			<artifactId>guava-io</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
