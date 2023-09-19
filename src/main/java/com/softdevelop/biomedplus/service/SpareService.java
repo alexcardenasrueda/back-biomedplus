@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SpareService {
 
-    Long createSpare(SpareDto equipoDto);
+    SpareDto createSpare(SpareDto equipoDto);
 
     SpareDto updateSpare(Long id, SpareDto equipoDto);
 

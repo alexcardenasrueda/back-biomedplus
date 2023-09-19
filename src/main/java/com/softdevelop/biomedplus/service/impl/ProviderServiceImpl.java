@@ -35,7 +35,7 @@ public class ProviderServiceImpl implements ProviderService {
       if (allProviders.isEmpty()) {
         throw new NotFoundException("Providers not found");
       }
-      providers = modelMapper.map(allProviders, new TypeToken<List<EquipmentDto>>() {
+      providers = modelMapper.map(allProviders, new TypeToken<List<ProviderDto>>() {
       }.getType());
     } catch (RuntimeException e) {
       throw new GenericException(e.getMessage());

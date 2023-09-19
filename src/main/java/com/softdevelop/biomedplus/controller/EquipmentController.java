@@ -4,7 +4,6 @@ import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.service.EquipmentService;
 
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
-import java.net.URI;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
