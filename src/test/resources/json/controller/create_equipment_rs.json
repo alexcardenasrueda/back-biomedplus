@@ -1,0 +1,15 @@
+{
+  "id": 20,
+  "name": "EQUIPO TEST",
+  "brand": "MARCA TEST",
+  "model": "MODELO TEST",
+  "series": "SERIES TEST",
+  "service": "SERVICIO TEST",
+  "area": "AREA TEST",
+  "activeNumber": "34",
+  "accessories": "SDC",
+  "equipmentType": "DCDS",
+  "provider": {
+    "id": 4
+  }
+}

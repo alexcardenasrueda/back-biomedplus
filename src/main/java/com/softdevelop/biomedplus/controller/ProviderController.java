@@ -1,6 +1,5 @@
 package com.softdevelop.biomedplus.controller;
 
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.ProviderDto;
 import com.softdevelop.biomedplus.service.ProviderService;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;

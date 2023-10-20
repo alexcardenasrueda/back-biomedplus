@@ -1,0 +1,116 @@
+[
+  {
+    "id": 10,
+    "name": "AMPLIFICADOR EGG",
+    "brand": "NATUR NEUROLOGY",
+    "model": "NOCOLET EEG V32 CA",
+    "series": "V32-19370182",
+    "service": "CONSULTA EXTERNA",
+    "area": "NEUROLOGÍA",
+    "activeNumber": "CM160",
+    "accessories": "ACCESORIO 1 Y 2",
+    "equipmentType": "METALURG",
+    "provider": {
+      "id": 8,
+      "name": "INSTRUMENTACIÓN",
+      "phone": "3131441194",
+      "city": "BOGOTÁ",
+      "address": "Calle 8"
+    }
+  },
+  {
+    "id": 11,
+    "name": "ANGIOGRAFO",
+    "brand": "GE",
+    "model": "INNOVA",
+    "series": "B3-18-012",
+    "service": "HEMODINAMIA",
+    "area": "SALA DE HEMODINAMIA",
+    "activeNumber": "05589",
+    "accessories": "DETALLE EN ANEXO",
+    "equipmentType": "BIOMÉDICO",
+    "provider": {
+      "id": 9,
+      "name": "GE",
+      "phone": "3134187090",
+      "city": "BOGOTÁ",
+      "address": "Calle 9"
+    }
+  },
+  {
+    "id": 13,
+    "name": "ATRIL",
+    "brand": "MIDAS REX",
+    "model": "TS08",
+    "series": "NA",
+    "service": "BODEGA",
+    "area": "BODEGA 6",
+    "activeNumber": "04624",
+    "accessories": "NA",
+    "equipmentType": "MOBILIARIO",
+    "provider": {
+      "id": 2,
+      "name": "MEDICOL",
+      "phone": "3136568989",
+      "city": "BOGOTÁ",
+      "address": "Calle 2"
+    }
+  },
+  {
+    "id": 14,
+    "name": "BANDA SIN FIN",
+    "brand": "GENERAL ELECTRIC",
+    "model": "T2100-ST2",
+    "series": "GEDC-1260",
+    "service": "MEDICINA NUCLEAR",
+    "area": "PRUEBA DE ESFUERZO",
+    "activeNumber": "04224",
+    "accessories": "NA",
+    "equipmentType": "USO DIAGNOSTICO",
+    "provider": {
+      "id": 9,
+      "name": "GE",
+      "phone": "3134187090",
+      "city": "BOGOTÁ",
+      "address": "Calle 9"
+    }
+  },
+  {
+    "id": 1,
+    "name": "CAJAS PLASTICAS",
+    "brand": "NA",
+    "model": "NA",
+    "series": "NA",
+    "service": "FARMACIA PRINCIPAL",
+    "area": "CENTRAL DE MEZCLAS",
+    "activeNumber": "NA",
+    "accessories": "TAPA",
+    "equipmentType": "MOBILIARIO",
+    "provider": {
+      "id": 1,
+      "name": "JV MEDICAL",
+      "phone": "3135998443",
+      "city": "BOGOTÁ",
+      "address": "Calle 1"
+    }
+  },
+  {
+    "id": 9,
+    "name": "MESA AUXILIAR",
+    "brand": "MAFET",
+    "model": "M-137",
+    "series": "2234555422",
+    "service": "LABORATORIO CLÍNICO Y PATOLOGÍA",
+    "area": "MICROBIOLOGÍA",
+    "activeNumber": "04789",
+    "accessories": "NA",
+    "equipmentType": "MOBILIARIO",
+    "provider": {
+      "id": 2,
+      "name": "MEDICOL",
+      "phone": "3136568989",
+      "city": "BOGOTÁ",
+      "address": "Calle 2"
+    }
+  }
+]

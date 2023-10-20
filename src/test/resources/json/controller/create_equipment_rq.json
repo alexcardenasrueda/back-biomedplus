@@ -1,0 +1,14 @@
+{
+  "name": "Equipo test",
+  "brand": "marca test",
+  "model": "modelo test",
+  "series": "series test",
+  "service": "servicio test",
+  "area": "area test",
+  "activeNumber": "34",
+  "accessories": "sdc",
+  "equipmentType": "dcds",
+  "provider": {
+    "id": 4
+  }
+}

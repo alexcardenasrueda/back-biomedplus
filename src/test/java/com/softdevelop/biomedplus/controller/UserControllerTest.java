@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -63,7 +64,18 @@ class UserControllerTest {
   }
 
   @Test
-  void getUserByEmail() {
-    assertTrue(true);
+  void getUserByEmail() throws IOException {
+
+    UserDto expectedRs =
+        JsonReader.readObject("json/controller/get_user_by_email_rs.json", UserDto.class);
+
+    Mockito.when(service.getUserByEmail(anyString(), anyString())).thenReturn(expectedRs);
+
+    ResponseEntity<UserDto> response = controller.getUserByEmail("testEmail", "testPass");
+
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertNotNull(response.getBody());
+    assertEquals("ABC@GMAIL.COM", response.getBody().getEmail());
+
   }
 }

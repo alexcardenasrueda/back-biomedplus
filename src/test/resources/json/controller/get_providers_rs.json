@@ -1,0 +1,338 @@
+[
+  {
+    "id": 25,
+    "name": "3M",
+    "phone": "3138820506",
+    "city": "MEDELLÍN",
+    "address": "Calle 25"
+  },
+  {
+    "id": 13,
+    "name": "ALEAR",
+    "phone": "3139766884",
+    "city": "BOGOTÁ",
+    "address": "Calle 13"
+  },
+  {
+    "id": 14,
+    "name": "AMAREY",
+    "phone": "3136176748",
+    "city": "MEDELLÍN",
+    "address": "Calle 14"
+  },
+  {
+    "id": 37,
+    "name": "AREOLA",
+    "phone": "3139709845",
+    "city": "BOGOTÁ",
+    "address": "Calle 37"
+  },
+  {
+    "id": 44,
+    "name": "ASP",
+    "phone": "3133855922",
+    "city": "CÚCUTA",
+    "address": "Calle 44"
+  },
+  {
+    "id": 21,
+    "name": "BAXTER",
+    "phone": "3133023028",
+    "city": "BOGOTÁ",
+    "address": "Calle 21"
+  },
+  {
+    "id": 4,
+    "name": "BIOSIGMA",
+    "phone": "3137795585,",
+    "city": "MEDELLÍN",
+    "address": "Calle 4"
+  },
+  {
+    "id": 7,
+    "name": "BIOTRONITECH",
+    "phone": "3137588700",
+    "city": "MEDELLÍN",
+    "address": "Calle 7"
+  },
+  {
+    "id": 39,
+    "name": "BOSIGMA",
+    "phone": "3139311415",
+    "city": "MEDELLÍN",
+    "address": "Calle 39"
+  },
+  {
+    "id": 50,
+    "name": "COLMEDICA %= 50",
+    "phone": "6017449655",
+    "city": "CALI",
+    "address": "CALLE 145 # 13 -24"
+  },
+  {
+    "id": 46,
+    "name": "COMERCIAL MEDICA",
+    "phone": "3135558902",
+    "city": "BOGOTÁ",
+    "address": "Calle 46"
+  },
+  {
+    "id": 10,
+    "name": "COMERCIAL MEDICA",
+    "phone": "3133771487",
+    "city": "CÚCUTA",
+    "address": "Calle 10"
+  },
+  {
+    "id": 11,
+    "name": "COMERCIAL MEDICAL",
+    "phone": "3136213885",
+    "city": "MEDELLÍN",
+    "address": "Calle 11"
+  },
+  {
+    "id": 43,
+    "name": "DRAGER",
+    "phone": "3132658916",
+    "city": "BOGOTÁ",
+    "address": "Calle 43"
+  },
+  {
+    "id": 6,
+    "name": "ELEKTA",
+    "phone": "3136627322",
+    "city": "BOGOTÁ",
+    "address": "Calle 6"
+  },
+  {
+    "id": 15,
+    "name": "EQUITRONIC",
+    "phone": "3133928324",
+    "city": "CALI",
+    "address": "Calle 15"
+  },
+  {
+    "id": 32,
+    "name": "EURODENT",
+    "phone": "3131940396",
+    "city": "BOGOTÁ",
+    "address": "Calle 32"
+  },
+  {
+    "id": 12,
+    "name": "FISIOMEDICA",
+    "phone": "3136442684",
+    "city": "BOGOTÁ",
+    "address": "Calle 1"
+  },
+  {
+    "id": 47,
+    "name": "FRITEC SAS",
+    "phone": "3136613841",
+    "city": "CALI",
+    "address": "Calle 47"
+  },
+  {
+    "id": 17,
+    "name": "FSFB",
+    "phone": "3138603089",
+    "city": "MEDELLÍN",
+    "address": "Calle 17"
+  },
+  {
+    "id": 23,
+    "name": "GBARCO",
+    "phone": "3136606729",
+    "city": "BOGOTÁ",
+    "address": "Calle 23"
+  },
+  {
+    "id": 9,
+    "name": "GE",
+    "phone": "3134187090",
+    "city": "BOGOTÁ",
+    "address": "Calle 9"
+  },
+  {
+    "id": 19,
+    "name": "ICU MEDICAL",
+    "phone": "3136267274",
+    "city": "MEDELLÍN",
+    "address": "Calle 19"
+  },
+  {
+    "id": 8,
+    "name": "INSTRUMENTACIÓN",
+    "phone": "3131441194",
+    "city": "BOGOTÁ",
+    "address": "Calle 8"
+  },
+  {
+    "id": 27,
+    "name": "INTERMETRO",
+    "phone": "3132510736",
+    "city": "BOGOTÁ",
+    "address": "Calle 27"
+  },
+  {
+    "id": 22,
+    "name": "J RESTREPO",
+    "phone": "3136510666",
+    "city": "MEDELLÍN",
+    "address": "Calle 22"
+  },
+  {
+    "id": 35,
+    "name": "JOHNSON & JOHNSON",
+    "phone": "3138621369",
+    "city": "BOGOTÁ",
+    "address": "Calle 35"
+  },
+  {
+    "id": 20,
+    "name": "JOMEDICAL",
+    "phone": "3134019711",
+    "city": "BOGOTÁ",
+    "address": "Calle 20"
+  },
+  {
+    "id": 1,
+    "name": "JV MEDICAL",
+    "phone": "3135998443",
+    "city": "BOGOTÁ",
+    "address": "Calle 1"
+  },
+  {
+    "id": 16,
+    "name": "KAIKA",
+    "phone": "3139940063",
+    "city": "BOGOTÁ",
+    "address": "Calle 16"
+  },
+  {
+    "id": 45,
+    "name": "KAIKA",
+    "phone": "3132782700",
+    "city": "MEDELLÍN",
+    "address": "Calle 45"
+  },
+  {
+    "id": 18,
+    "name": "LABORATORIOS DE CARTAGENA",
+    "phone": "3134347730",
+    "city": "CARTAGENA",
+    "address": "Calle 18"
+  },
+  {
+    "id": 24,
+    "name": "LAS ELECTROMEDICINA",
+    "phone": "3131704636",
+    "city": "CARTAGENA",
+    "address": "Calle 24"
+  },
+  {
+    "id": 3,
+    "name": "LM INSTRUMENTS",
+    "phone": "3136335064",
+    "city": "BOGOTÁ",
+    "address": "Calle 3"
+  },
+  {
+    "id": 2,
+    "name": "MEDICOL",
+    "phone": "3136568989",
+    "city": "BOGOTÁ",
+    "address": "Calle 2"
+  },
+  {
+    "id": 5,
+    "name": "MEDTRONIC",
+    "phone": "3132279050",
+    "city": "CALI",
+    "address": "Calle 5"
+  },
+  {
+    "id": 31,
+    "name": "NA",
+    "phone": "3133588889",
+    "city": "BOGOTÁ",
+    "address": "Calle 31"
+  },
+  {
+    "id": 42,
+    "name": "NOVATECNICA",
+    "phone": "3133130203",
+    "city": "PASTO",
+    "address": "Calle 42"
+  },
+  {
+    "id": 28,
+    "name": "QUIRURGICOS",
+    "phone": "3133725924",
+    "city": "BOGOTÁ",
+    "address": "Calle 28"
+  },
+  {
+    "id": 30,
+    "name": "QUIRURGICOS",
+    "phone": "3136920298",
+    "city": "VALLEDUPAR",
+    "address": "Calle 30"
+  },
+  {
+    "id": 41,
+    "name": "RX MEDELLIN",
+    "phone": "3131477516",
+    "city": "CALI",
+    "address": "Calle 41"
+  },
+  {
+    "id": 29,
+    "name": "SURGICON",
+    "phone": "3138850772",
+    "city": "CARTAGENA",
+    "address": "Calle 29"
+  },
+  {
+    "id": 36,
+    "name": "SURGIPLAST",
+    "phone": "3137744847",
+    "city": "IBAGUÉ",
+    "address": "Calle 36"
+  },
+  {
+    "id": 38,
+    "name": "TECMECA",
+    "phone": "3136452351",
+    "city": "MEDELLÍN",
+    "address": "Calle 38"
+  },
+  {
+    "id": 26,
+    "name": "TECNICA ELECTROMEDICA",
+    "phone": "3132784378",
+    "city": "BOGOTÁ",
+    "address": "Calle 26"
+  },
+  {
+    "id": 33,
+    "name": "TECNICA ELECTROMEDICAL",
+    "phone": "3138776900",
+    "city": "BOGOTÁ",
+    "address": "Calle 33"
+  },
+  {
+    "id": 34,
+    "name": "TMC",
+    "phone": "3139621587",
+    "city": "BOGOTÁ",
+    "address": "Calle 34"
+  },
+  {
+    "id": 40,
+    "name": "UCIPHARMA",
+    "phone": "3135603848",
+    "city": "BOGOTÁ",
+    "address": "Calle 40"
+  }
+]
