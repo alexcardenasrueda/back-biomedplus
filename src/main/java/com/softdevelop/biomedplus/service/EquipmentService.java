@@ -2,14 +2,13 @@ package com.softdevelop.biomedplus.service;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
-import com.softdevelop.biomedplus.model.dto.NextMaintenanceEquipmentDto;
-import com.softdevelop.biomedplus.model.dto.SpareDto;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface EquipmentService {
 
-  EquipmentDto createEquipment(EquipmentDto equipmentDto);
+  EquipmentDto createEquipment(EquipmentDto equipmentDto, MultipartFile image);
 
   EquipmentDto updateEquipment(Long id, EquipmentDto equipmentDto);
 
