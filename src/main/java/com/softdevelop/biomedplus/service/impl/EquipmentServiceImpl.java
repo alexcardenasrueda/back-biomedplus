@@ -15,14 +15,8 @@ import com.softdevelop.biomedplus.repository.ProviderRepository;
 import com.softdevelop.biomedplus.service.EquipmentService;
 import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
 import com.softdevelop.biomedplus.util.GenericUtilities;
-import com.softdevelop.biomedplus.util.logs.LoggerEvent;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -45,55 +39,40 @@ public class EquipmentServiceImpl implements EquipmentService {
   @Override
   public EquipmentDto createEquipment(EquipmentDto equipmentRq, MultipartFile image) {
     EquipmentEntity saved;
+
     try{
       Boolean exist = providerRepository.existsById(equipmentRq.getProvider().getId());
 
       if (Boolean.FALSE.equals(exist)) {
         throw new NotFoundException("Provider not found");
       }
-      this.imageBuilder(image);
-      EquipmentEntity equipmentEntity = new EquipmentEntity();
+      EquipmentEntity equipmentEntityToSave = new EquipmentEntity();
+      if (image != null && !image.isEmpty()){
+        genericUtilities.imageBuilder(image, EQUIPMENT_IMAGE_DIRECTORY);
+        equipmentEntityToSave.setImage(image.getOriginalFilename());
+      }
       saved = equipmentRepository.save(
-          equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity, equipmentRq));
-
+          equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToSave, equipmentRq));
     }catch (RuntimeException e ){
       throw new GenericException(e.getMessage());
     }
     return modelMapper.map(saved, EquipmentDto.class);
   }
 
-  private boolean imageBuilder(MultipartFile image) {
-
-    try{
-      if (image == null || image.isEmpty()){
-        LoggerEvent.info()
-            .forClass(EquipmentServiceImpl.class)
-            .withField("File image", "This equipment don't have a image")
-            .log();
-        return false;
-      }
-      genericUtilities.makeDirectoryIfNotExist(EQUIPMENT_IMAGE_DIRECTORY);
-      Path fileNamePath = Paths.get(EQUIPMENT_IMAGE_DIRECTORY);
-      String absoluteRoute = fileNamePath.toFile().getAbsolutePath();
-      Path completeRoute = Paths.get(absoluteRoute.concat(
-          Objects.requireNonNull(image.getOriginalFilename())));
-      Files.write(completeRoute, image.getBytes());
-      return true;
-    } catch (IOException ex) {
-      return false;
-    }
-  }
-
 
   @Override
-  public EquipmentDto updateEquipment(Long id, EquipmentDto equipmentRq) {
+  public EquipmentDto updateEquipment(Long id, EquipmentDto equipmentRq, MultipartFile image) {
 
-    Optional<EquipmentEntity> equipmentEntity = equipmentRepository.findById(id);
-    if (equipmentEntity.isEmpty()) {
+    Optional<EquipmentEntity> equipmentEntityToUpdate = equipmentRepository.findById(id);
+    if (equipmentEntityToUpdate.isEmpty()) {
       throw new NotFoundException("Equipment not found");
     }
+    if (image != null && !image.isEmpty()){
+      genericUtilities.imageBuilder(image, EQUIPMENT_IMAGE_DIRECTORY);
+      equipmentEntityToUpdate.get().setImage(image.getOriginalFilename());
+    }
     EquipmentEntity equipmentUpdated = equipmentRepository.save(
-        equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity.get(), equipmentRq));
+        equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToUpdate.get(), equipmentRq));
     return modelMapper.map(equipmentUpdated, EquipmentDto.class);
   }
 

@@ -41,10 +41,13 @@ public class EquipmentController {
     return ResponseEntity.ok(equipment);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(value = "/{id}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<EquipmentDto> updateEquipment(
-          @PathVariable("id") Long id, @Valid @RequestBody EquipmentDto equipmentRq) {
-    EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq);
+          @PathVariable("id") Long id, @RequestPart("data") EquipmentDto equipmentRq,
+      @RequestPart("image")MultipartFile image) {
+    EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq, image);
     return ResponseEntity.ok(equipmentRs);
   }
 

@@ -1,7 +1,16 @@
 package com.softdevelop.biomedplus.util;
 
+import static com.softdevelop.biomedplus.util.Constants.EQUIPMENT_IMAGE_DIRECTORY;
+
+import com.softdevelop.biomedplus.exception.GenericException;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class GenericUtilities {
@@ -15,24 +24,16 @@ public class GenericUtilities {
     return mkdir;
   }
 
-  public String getRandomString(int i) {
-    String theAlphaNumericS;
-    StringBuilder builder;
-
-    theAlphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        + "0123456789";
-
-    // create the StringBuffer
-    builder = new StringBuilder(i);
-
-    for (int m = 0; m < i; m++) {
-      // generate numeric
-      int myindex = (int) (theAlphaNumericS.length() * Math.random());
-
-      // add the characters
-      builder.append(theAlphaNumericS.charAt(myindex));
+  public void imageBuilder(MultipartFile image, String directory) {
+    try{
+      this.makeDirectoryIfNotExist(directory);
+      Path fileNamePath = Paths.get(directory);
+      String absoluteRoute = fileNamePath.toFile().getAbsolutePath();
+      Path completeRoute = Paths.get(absoluteRoute.concat("\\")
+          .concat(Objects.requireNonNull(image.getOriginalFilename())));
+      Files.write(completeRoute, image.getBytes());
+    } catch (IOException ex) {
+      throw new GenericException("Failed creating image");
     }
-
-    return builder.toString();
   }
 }

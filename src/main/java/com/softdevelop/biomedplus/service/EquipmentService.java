@@ -10,7 +10,7 @@ public interface EquipmentService {
 
   EquipmentDto createEquipment(EquipmentDto equipmentDto, MultipartFile image);
 
-  EquipmentDto updateEquipment(Long id, EquipmentDto equipmentDto);
+  EquipmentDto updateEquipment(Long id, EquipmentDto equipmentDto, MultipartFile image);
 
   List<EquipmentDto> getEquipments() throws GenericException;
 

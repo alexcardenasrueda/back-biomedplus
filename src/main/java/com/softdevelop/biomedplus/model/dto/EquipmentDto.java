@@ -49,6 +49,8 @@ public class EquipmentDto implements Serializable {
 
   @NotBlank(message = "The type of equipment cannot be empty")
   private String equipmentType;
+
+  private String image;
   private ProviderDto provider;
 
   private MaintenanceDto nextMaintenance;
