@@ -52,6 +52,9 @@ public class EquipmentEntity {
   @Column(name = "equipment_type")
   private String equipmentType;
 
+  @Column(name = "image")
+  private String image;
+
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "id_provider", nullable = false, foreignKey = @ForeignKey(name = "FK_EQUIPMENT_PROVIDER"))
   private ProviderEntity provider;

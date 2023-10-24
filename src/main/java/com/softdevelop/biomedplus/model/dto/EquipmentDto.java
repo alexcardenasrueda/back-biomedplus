@@ -2,10 +2,13 @@ package com.softdevelop.biomedplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.softdevelop.biomedplus.model.entity.MaintenanceEntity;
+import javax.persistence.Column;
+import javax.persistence.Lob;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -47,6 +50,7 @@ public class EquipmentDto implements Serializable {
   @NotBlank(message = "The type of equipment cannot be empty")
   private String equipmentType;
 
+  private String image;
   private ProviderDto provider;
 
   private MaintenanceDto nextMaintenance;

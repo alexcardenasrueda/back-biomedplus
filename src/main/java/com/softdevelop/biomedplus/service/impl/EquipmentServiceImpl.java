@@ -1,5 +1,7 @@
 package com.softdevelop.biomedplus.service.impl;
 
+import static com.softdevelop.biomedplus.util.Constants.EQUIPMENT_IMAGE_DIRECTORY;
+
 import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
@@ -12,13 +14,14 @@ import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.ProviderRepository;
 import com.softdevelop.biomedplus.service.EquipmentService;
 import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
+import com.softdevelop.biomedplus.util.GenericUtilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -30,37 +33,46 @@ public class EquipmentServiceImpl implements EquipmentService {
 
   private final ModelMapper modelMapper;
   private final ProviderRepository providerRepository;
+  private final GenericUtilities genericUtilities;
 
 
   @Override
-  public EquipmentDto createEquipment(EquipmentDto equipmentDto) {
+  public EquipmentDto createEquipment(EquipmentDto equipmentRq, MultipartFile image) {
+    EquipmentEntity saved;
 
-    EquipmentEntity save;
     try{
-      Boolean exist = providerRepository.existsById(equipmentDto.getProvider().getId());
+      Boolean exist = providerRepository.existsById(equipmentRq.getProvider().getId());
+
       if (Boolean.FALSE.equals(exist)) {
         throw new NotFoundException("Provider not found");
       }
-
-      EquipmentEntity equipmentEntity = new EquipmentEntity();
-      save = equipmentRepository.save(
-          equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity, equipmentDto));
-
+      EquipmentEntity equipmentEntityToSave = new EquipmentEntity();
+      if (image != null && !image.isEmpty()){
+        genericUtilities.imageBuilder(image, EQUIPMENT_IMAGE_DIRECTORY);
+        equipmentEntityToSave.setImage(image.getOriginalFilename());
+      }
+      saved = equipmentRepository.save(
+          equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToSave, equipmentRq));
     }catch (RuntimeException e ){
       throw new GenericException(e.getMessage());
     }
-    return modelMapper.map(save, EquipmentDto.class);
+    return modelMapper.map(saved, EquipmentDto.class);
   }
 
-  @Override
-  public EquipmentDto updateEquipment(Long id, EquipmentDto equipmentRq) {
 
-    Optional<EquipmentEntity> equipmentEntity = equipmentRepository.findById(id);
-    if (equipmentEntity.isEmpty()) {
+  @Override
+  public EquipmentDto updateEquipment(Long id, EquipmentDto equipmentRq, MultipartFile image) {
+
+    Optional<EquipmentEntity> equipmentEntityToUpdate = equipmentRepository.findById(id);
+    if (equipmentEntityToUpdate.isEmpty()) {
       throw new NotFoundException("Equipment not found");
     }
+    if (image != null && !image.isEmpty()){
+      genericUtilities.imageBuilder(image, EQUIPMENT_IMAGE_DIRECTORY);
+      equipmentEntityToUpdate.get().setImage(image.getOriginalFilename());
+    }
     EquipmentEntity equipmentUpdated = equipmentRepository.save(
-        equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntity.get(), equipmentRq));
+        equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToUpdate.get(), equipmentRq));
     return modelMapper.map(equipmentUpdated, EquipmentDto.class);
   }
 
