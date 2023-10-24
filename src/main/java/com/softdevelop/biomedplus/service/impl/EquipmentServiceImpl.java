@@ -28,9 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class EquipmentServiceImpl implements EquipmentService {
 
   private final EquipmentRepository equipmentRepository;
-
   private final EquipmentTranslator equipmentTranslator;
-
   private final ModelMapper modelMapper;
   private final ProviderRepository providerRepository;
   private final GenericUtilities genericUtilities;
