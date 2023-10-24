@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Objects;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +35,16 @@ public class GenericUtilities {
       Files.write(completeRoute, image.getBytes());
     } catch (IOException ex) {
       throw new GenericException("Failed creating image");
+    }
+  }
+
+  public String readImageFromServer(String directory, String imageName) {
+    try{
+      String completeRoute = directory.concat("\\").concat(imageName);
+      byte[] fileContent = FileUtils.readFileToByteArray(new File(completeRoute));
+      return Base64.getEncoder().encodeToString(fileContent);
+    } catch (IOException ex) {
+      throw new GenericException("Failed returning image");
     }
   }
 }
