@@ -1,6 +1,5 @@
 package com.softdevelop.biomedplus.util;
 
-import static com.softdevelop.biomedplus.util.Constants.EQUIPMENT_IMAGE_DIRECTORY;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import java.io.File;
