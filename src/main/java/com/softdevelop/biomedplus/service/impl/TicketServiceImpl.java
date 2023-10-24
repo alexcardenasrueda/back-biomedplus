@@ -21,6 +21,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -81,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Long createTicket(TicketDto ticketDto) {
+    public Long createTicket(TicketDto ticketDto, MultipartFile image) {
         long idTicket;
         try{
             boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
