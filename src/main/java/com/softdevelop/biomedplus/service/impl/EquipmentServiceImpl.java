@@ -15,6 +15,7 @@ import com.softdevelop.biomedplus.repository.ProviderRepository;
 import com.softdevelop.biomedplus.service.EquipmentService;
 import com.softdevelop.biomedplus.service.translator.EquipmentTranslator;
 import com.softdevelop.biomedplus.util.GenericUtilities;
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,6 @@ public class EquipmentServiceImpl implements EquipmentService {
   @Override
   public EquipmentDto createEquipment(EquipmentDto equipmentRq, MultipartFile image) {
     EquipmentEntity saved;
-
     try{
       Boolean exist = providerRepository.existsById(equipmentRq.getProvider().getId());
 
@@ -51,7 +51,7 @@ public class EquipmentServiceImpl implements EquipmentService {
       }
       saved = equipmentRepository.save(
           equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToSave, equipmentRq));
-    }catch (RuntimeException e ){
+    } catch (RuntimeException e ){
       throw new GenericException(e.getMessage());
     }
     return modelMapper.map(saved, EquipmentDto.class);
@@ -76,8 +76,13 @@ public class EquipmentServiceImpl implements EquipmentService {
 
   @Override
   public List<EquipmentDto> getEquipments() throws GenericException {
-    List<EquipmentDto> equipments = new ArrayList<>();
 
+    LoggerEvent.info()
+        .forClass(EquipmentServiceImpl.class)
+        .withField("Action: ", "getEquipments-init")
+        .log();
+
+    List<EquipmentDto> equipments = new ArrayList<>();
     try {
       List<EquipmentEntity> allEquipments = equipmentRepository.findAllByOrderByNameAsc();
       if (allEquipments == null || allEquipments.isEmpty()) {
