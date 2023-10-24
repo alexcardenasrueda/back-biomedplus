@@ -1,16 +1,15 @@
 package com.softdevelop.biomedplus.service;
 
 import com.softdevelop.biomedplus.exception.GenericException;
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
-import com.softdevelop.biomedplus.model.dto.NextMaintenanceEquipmentDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface TicketService {
     List<TicketDto> getTickets() throws GenericException;
     List<TicketDto> getTicketsCreated() throws GenericException;
-    Long createTicket(TicketDto ticketDto);
+    Long createTicket(TicketDto ticketDto, MultipartFile image);
 
     TicketDto updateTicket(Long id, TicketDto ticketDto);
 
