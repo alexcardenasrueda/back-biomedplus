@@ -1,5 +1,7 @@
 package com.softdevelop.biomedplus.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.service.EquipmentService;
 
@@ -29,8 +31,10 @@ public class EquipmentController {
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<EquipmentDto> createEquipment(@RequestPart("data") EquipmentDto equipmentRq,
-      @RequestPart("image")MultipartFile image) {
+  public ResponseEntity<EquipmentDto> createEquipment(@RequestParam("data")String equipmentStr,
+      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    EquipmentDto equipmentRq = objectMapper.readValue(equipmentStr, EquipmentDto.class);
     LoggerEvent.info()
         .forClass(EquipmentController.class)
         .withField("Action: ", "createEquipment")
@@ -44,8 +48,10 @@ public class EquipmentController {
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<EquipmentDto> updateEquipment(
-          @PathVariable("id") Long id, @RequestPart("data") EquipmentDto equipmentRq,
-      @RequestPart("image")MultipartFile image) {
+          @PathVariable("id") Long id, @RequestParam("data") String equipmentStr,
+      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    EquipmentDto equipmentRq = objectMapper.readValue(equipmentStr, EquipmentDto.class);
     EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq, image);
     return ResponseEntity.ok(equipmentRs);
   }

@@ -1,5 +1,8 @@
 package com.softdevelop.biomedplus.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
@@ -34,14 +37,16 @@ public class TicketController {
   }
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<TicketDto> createTicket(@RequestPart("data") TicketDto ticketRq,
-      @RequestPart("image") MultipartFile image) {
+          produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<TicketDto> createTicket(@RequestParam("data") String ticketStr,
+                                                @RequestPart("image") MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    TicketDto ticketRq = objectMapper.readValue(ticketStr, TicketDto.class);
     LoggerEvent.info()
-        .forClass(TicketController.class)
-        .withField("Action: ", "createTicket")
-        .withField("TicketRequest", ticketRq)
-        .log();
+            .forClass(TicketController.class)
+            .withField("Action: ", "createTicket")
+            .withField("TicketRequest", ticketRq)
+            .log();
     TicketDto ticket = ticketService.createTicket(ticketRq, image);
     return ResponseEntity.ok(ticket);
   }
@@ -50,8 +55,10 @@ public class TicketController {
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<TicketDto> updateEquipment(
-          @PathVariable("id") Long id, @RequestPart("data") TicketDto ticketRq,
-      @RequestPart("image")MultipartFile image) {
+          @PathVariable("id") Long id, @RequestParam("data") String ticketStr,
+      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    TicketDto ticketRq = objectMapper.readValue(ticketStr, TicketDto.class);
     TicketDto ticketRs = ticketService.updateTicket(id, ticketRq, image);
     return ResponseEntity.ok(ticketRs);
   }
