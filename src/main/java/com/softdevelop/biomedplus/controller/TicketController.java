@@ -55,8 +55,10 @@ public class TicketController {
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<TicketDto> updateEquipment(
-          @PathVariable("id") Long id, @RequestPart("data") TicketDto ticketRq,
-      @RequestPart("image")MultipartFile image) {
+          @PathVariable("id") Long id, @RequestParam("data") String ticketStr,
+      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    TicketDto ticketRq = objectMapper.readValue(ticketStr, TicketDto.class);
     TicketDto ticketRs = ticketService.updateTicket(id, ticketRq, image);
     return ResponseEntity.ok(ticketRs);
   }

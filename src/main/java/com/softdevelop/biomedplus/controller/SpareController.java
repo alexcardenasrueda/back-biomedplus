@@ -1,6 +1,9 @@
 package com.softdevelop.biomedplus.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softdevelop.biomedplus.model.dto.SpareDto;
+import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.service.SpareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -27,8 +30,10 @@ public class SpareController {
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<SpareDto> createSpare(@RequestPart("data") SpareDto spareRq,
-      @RequestPart("image") MultipartFile image) {
+  public ResponseEntity<SpareDto> createSpare(@RequestParam("data") String spareStr,
+      @RequestPart("image") MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    SpareDto spareRq = objectMapper.readValue(spareStr, SpareDto.class);
     SpareDto resp = spareService.createSpare(spareRq, image);
     return ResponseEntity.ok(resp);
   }
@@ -36,9 +41,11 @@ public class SpareController {
   @PutMapping(value = "/{id}",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<com.softdevelop.biomedplus.model.dto.SpareDto> updateSpare(
-      @PathVariable("id") Long id, @RequestPart("data") SpareDto spareRq,
-      @RequestPart("image")MultipartFile image) {
+  public ResponseEntity<SpareDto> updateSpare(
+      @PathVariable("id") Long id, @RequestParam("data") String spareStr,
+      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    SpareDto spareRq = objectMapper.readValue(spareStr, SpareDto.class);
     SpareDto spareRs = spareService.updateSpare(id, spareRq, image);
     return ResponseEntity.ok(spareRs);
   }
