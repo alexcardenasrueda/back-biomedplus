@@ -35,6 +35,8 @@ public class SpareEntity {
     private Integer quantity;
     @Column(name = "price")
     private Long price;
+    @Column(name = "image")
+    private String image;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_provider", nullable = false, foreignKey = @ForeignKey(name = "FK_SPARE_PROVIDER"))

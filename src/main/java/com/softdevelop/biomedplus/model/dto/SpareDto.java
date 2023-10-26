@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SpareDto {
+
+    private Long id;
     private String name;
     private String brand;
     private String model;
@@ -22,6 +24,7 @@ public class SpareDto {
     private String codeReference;
     private Integer quantity;
     private Long price;
+    private String image;
 
     @NotNull(message = "The provider of equipment cannot be empty")
     private ProviderDto provider;

@@ -9,8 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface TicketService {
     List<TicketDto> getTickets() throws GenericException;
     List<TicketDto> getTicketsCreated() throws GenericException;
-    Long createTicket(TicketDto ticketDto, MultipartFile image);
+    TicketDto createTicket(TicketDto ticketDto, MultipartFile image);
 
-    TicketDto updateTicket(Long id, TicketDto ticketDto);
+    TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image);
 
 }

@@ -37,24 +37,27 @@ public class TicketController {
   }
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<Long> createTicket(@RequestParam("data") String ticketStr,
-      @RequestPart("image") MultipartFile image) throws JsonProcessingException {
+          produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<TicketDto> createTicket(@RequestParam("data") String ticketStr,
+                                                @RequestPart("image") MultipartFile image) throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
     TicketDto ticketRq = objectMapper.readValue(ticketStr, TicketDto.class);
     LoggerEvent.info()
-        .forClass(TicketController.class)
-        .withField("Action: ", "createTicket")
-        .withField("TicketReques", ticketRq)
-        .log();
-    Long equipmentSaved = ticketService.createTicket(ticketRq, image);
-    return ResponseEntity.created(URI.create(String.format("tickets/%s", equipmentSaved))).build();
+            .forClass(TicketController.class)
+            .withField("Action: ", "createTicket")
+            .withField("TicketRequest", ticketRq)
+            .log();
+    TicketDto ticket = ticketService.createTicket(ticketRq, image);
+    return ResponseEntity.ok(ticket);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(value = "/{id}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<TicketDto> updateEquipment(
-          @PathVariable("id") Long id, @Valid @RequestBody TicketDto ticketRq) {
-    TicketDto ticketRs = ticketService.updateTicket(id, ticketRq);
+          @PathVariable("id") Long id, @RequestPart("data") TicketDto ticketRq,
+      @RequestPart("image")MultipartFile image) {
+    TicketDto ticketRs = ticketService.updateTicket(id, ticketRq, image);
     return ResponseEntity.ok(ticketRs);
   }
 
