@@ -3,6 +3,7 @@ package com.softdevelop.biomedplus.service.translator;
 import static com.softdevelop.biomedplus.util.Constants.EQUIPMENT_IMAGE_DIRECTORY;
 
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
+import com.softdevelop.biomedplus.model.dto.ProviderDto;
 import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 import com.softdevelop.biomedplus.model.entity.ProviderEntity;
 import com.softdevelop.biomedplus.util.GenericUtilities;
@@ -49,6 +50,10 @@ public class EquipmentTranslator {
        .accessories(entity.getAccessories())
        .equipmentType(entity.getEquipmentType())
        .image(imageToResponse)
+       .provider(ProviderDto.builder()
+           .id(entity.getProvider().getId())
+           .name(entity.getProvider().getName())
+           .build())
        .build();
   }
 }
