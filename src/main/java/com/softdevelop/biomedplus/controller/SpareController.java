@@ -3,11 +3,13 @@ package com.softdevelop.biomedplus.controller;
 import com.softdevelop.biomedplus.model.dto.SpareDto;
 import com.softdevelop.biomedplus.service.SpareService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -23,16 +25,21 @@ public class SpareController {
     return ResponseEntity.ok(spares);
   }
 
-  @PostMapping()
-  public ResponseEntity<SpareDto> createSpare(@Valid @RequestBody SpareDto spareRq) {
-    SpareDto resp = spareService.createSpare(spareRq);
+  @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<SpareDto> createSpare(@RequestPart("data") SpareDto spareRq,
+      @RequestPart("image") MultipartFile image) {
+    SpareDto resp = spareService.createSpare(spareRq, image);
     return ResponseEntity.ok(resp);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(value = "/{id}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<com.softdevelop.biomedplus.model.dto.SpareDto> updateSpare(
-      @PathVariable("id") Long id, @Valid @RequestBody SpareDto spareRq) {
-    SpareDto spareRs = spareService.updateSpare(id, spareRq);
+      @PathVariable("id") Long id, @RequestPart("data") SpareDto spareRq,
+      @RequestPart("image")MultipartFile image) {
+    SpareDto spareRs = spareService.updateSpare(id, spareRq, image);
     return ResponseEntity.ok(spareRs);
   }
 

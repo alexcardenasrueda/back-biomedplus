@@ -1,11 +1,13 @@
 package com.softdevelop.biomedplus.service.impl;
 
 import static com.softdevelop.biomedplus.util.Constants.NOT_FOUND_TICKETS;
+import static com.softdevelop.biomedplus.util.Constants.TICKET_IMAGE_DIRECTORY;
 
 import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
+import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 import com.softdevelop.biomedplus.model.entity.TicketEntity;
 import com.softdevelop.biomedplus.repository.StatusRepository;
 import com.softdevelop.biomedplus.repository.UserRepository;
@@ -13,6 +15,7 @@ import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.repository.EquipmentRepository;
 import com.softdevelop.biomedplus.repository.TicketRepository;
 import com.softdevelop.biomedplus.service.translator.TicketTranslator;
+import com.softdevelop.biomedplus.util.GenericUtilities;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,8 @@ public class TicketServiceImpl implements TicketService {
     private final ModelMapper modelMapper;
     private final TicketTranslator ticketTranslator;
 
+    private final GenericUtilities genericUtilities;
+
     @Override
     public List<TicketDto> getTickets() throws GenericException {
 
@@ -52,6 +57,12 @@ public class TicketServiceImpl implements TicketService {
             }
             ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {
             }.getType());
+            for(TicketEntity ticket :allTickets) {
+                TicketDto ticketTemp = ticketTranslator.setTicketEntityToTicketDto(ticket);
+
+                ticketsRs.add(ticketTemp);
+            }
+
         } catch (RuntimeException e) {
             throw new GenericException(e.getMessage());
         }
@@ -82,36 +93,38 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Long createTicket(TicketDto ticketDto, MultipartFile image) {
-        long idTicket;
+    public TicketDto createTicket(TicketDto ticketDto, MultipartFile image) {
+        TicketEntity ticketSaved;
         try{
             boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
             if (!exist) {
                 throw new NotFoundException("Equipment not found");
             }
-
             exist = statusRepository.existsById(ticketDto.getStatus().getId());
             if (!exist) {
                 throw new NotFoundException("Status not found");
             }
-
             exist = userRepository.existsById(ticketDto.getUser().getId());
             if (!exist) {
                 throw new NotFoundException("User not found");
             }
 
-            TicketEntity ticketEntity = new TicketEntity();
-            TicketEntity ticketSaved = ticketRepository.save(
-                    ticketTranslator.setTicketDtoToTicketEntity(ticketEntity, ticketDto));
-            idTicket = ticketSaved.getId();
+            TicketEntity ticketEntityToSave = new TicketEntity();
+            if (image != null && !image.isEmpty()){
+                genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
+                ticketEntityToSave.setImage(image.getOriginalFilename());
+            }
+
+            ticketSaved = ticketRepository.save(
+                    ticketTranslator.setTicketDtoToTicketEntity(ticketEntityToSave, ticketDto));
         }catch (RuntimeException e ){
             throw new GenericException(e.getMessage());
         }
-        return idTicket;
+        return modelMapper.map(ticketSaved, TicketDto.class);
     }
 
     @Override
-    public TicketDto updateTicket(Long id, TicketDto ticketDto) {
+    public TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image) {
         TicketDto ticketSavedDto;
         try{
             boolean exist = ticketRepository.existsById(id);
@@ -135,6 +148,11 @@ public class TicketServiceImpl implements TicketService {
             }
 
             TicketEntity ticketEntity = new TicketEntity();
+            if (image != null && !image.isEmpty()){
+                genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
+                ticketEntity.setImage(image.getOriginalFilename());
+            }
+
             ticketEntity.setId(id);
             TicketEntity ticketSaved = ticketRepository.save(
                     ticketTranslator.setTicketDtoToTicketEntity(ticketEntity, ticketDto));

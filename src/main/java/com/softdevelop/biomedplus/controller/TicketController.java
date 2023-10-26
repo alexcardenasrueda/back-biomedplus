@@ -35,21 +35,24 @@ public class TicketController {
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<Long> createTicket(@RequestPart("data") TicketDto ticketRq,
+  public ResponseEntity<TicketDto> createTicket(@RequestPart("data") TicketDto ticketRq,
       @RequestPart("image") MultipartFile image) {
     LoggerEvent.info()
         .forClass(TicketController.class)
         .withField("Action: ", "createTicket")
-        .withField("TicketReques", ticketRq)
+        .withField("TicketRequest", ticketRq)
         .log();
-    Long equipmentSaved = ticketService.createTicket(ticketRq, image);
-    return ResponseEntity.created(URI.create(String.format("tickets/%s", equipmentSaved))).build();
+    TicketDto ticket = ticketService.createTicket(ticketRq, image);
+    return ResponseEntity.ok(ticket);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(value = "/{id}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<TicketDto> updateEquipment(
-          @PathVariable("id") Long id, @Valid @RequestBody TicketDto ticketRq) {
-    TicketDto ticketRs = ticketService.updateTicket(id, ticketRq);
+          @PathVariable("id") Long id, @RequestPart("data") TicketDto ticketRq,
+      @RequestPart("image")MultipartFile image) {
+    TicketDto ticketRs = ticketService.updateTicket(id, ticketRq, image);
     return ResponseEntity.ok(ticketRs);
   }
 
