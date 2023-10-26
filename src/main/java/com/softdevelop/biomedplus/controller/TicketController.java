@@ -1,5 +1,8 @@
 package com.softdevelop.biomedplus.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
 import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
@@ -35,8 +38,10 @@ public class TicketController {
 
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<Long> createTicket(@RequestPart("data") TicketDto ticketRq,
-      @RequestPart("image") MultipartFile image) {
+  public ResponseEntity<Long> createTicket(@RequestParam("data") String ticketStr,
+      @RequestPart("image") MultipartFile image) throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    TicketDto ticketRq = objectMapper.readValue(ticketStr, TicketDto.class);
     LoggerEvent.info()
         .forClass(TicketController.class)
         .withField("Action: ", "createTicket")
