@@ -5,12 +5,14 @@ import com.softdevelop.biomedplus.service.TicketService;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -23,7 +25,6 @@ public class TicketController {
 
   @GetMapping()
   public ResponseEntity<List<TicketDto>> getTickets() {
-
     LoggerEvent.info()
         .forClass(TicketController.class)
         .withField("Action: ", "getTickets")
@@ -32,9 +33,16 @@ public class TicketController {
     return ResponseEntity.ok(requests);
   }
 
-  @PostMapping()
-  public ResponseEntity<Long> createTicket(@Valid @RequestBody TicketDto ticketRq) {
-    Long equipmentSaved = ticketService.createTicket(ticketRq);
+  @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<Long> createTicket(@RequestPart("data") TicketDto ticketRq,
+      @RequestPart("image") MultipartFile image) {
+    LoggerEvent.info()
+        .forClass(TicketController.class)
+        .withField("Action: ", "createTicket")
+        .withField("TicketReques", ticketRq)
+        .log();
+    Long equipmentSaved = ticketService.createTicket(ticketRq, image);
     return ResponseEntity.created(URI.create(String.format("tickets/%s", equipmentSaved))).build();
   }
 

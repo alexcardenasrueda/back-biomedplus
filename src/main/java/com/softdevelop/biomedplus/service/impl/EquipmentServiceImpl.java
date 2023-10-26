@@ -85,7 +85,8 @@ public class EquipmentServiceImpl implements EquipmentService {
       }
 
       for(EquipmentEntity equipment :allEquipments) {
-        EquipmentDto equipmentDto = modelMapper.map(equipment, EquipmentDto.class);
+        EquipmentDto equipmentDto = equipmentTranslator.setEquipmentEntityToEquipmentDto(
+            equipment);
         for(MaintenanceEntity maintenance : equipment.getMaintenances()) {
           if (maintenance.getDoneDate() == null ) {
             MaintenanceDto maintenanceDto = new MaintenanceDto();
