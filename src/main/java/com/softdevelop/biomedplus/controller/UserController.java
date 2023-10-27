@@ -43,6 +43,15 @@ public class UserController {
     return ResponseEntity.ok(user);
   }
 
-
-
+  @GetMapping("/{id}")
+  public ResponseEntity<UserDto> getUserById(
+      @PathVariable("id") Long id) {
+    LoggerEvent.info()
+        .forClass(UserController.class)
+        .withField("Action: ", "getUserById")
+        .withField("Id", id)
+        .log();
+    UserDto response = userService.getuserById(id);
+    return ResponseEntity.ok(response);
+  }
 }

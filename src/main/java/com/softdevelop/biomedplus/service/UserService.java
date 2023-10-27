@@ -10,4 +10,6 @@ public interface UserService {
     UserDto getUserByEmail(String email, String pass);
 
   List<UserDto> getUsers();
+
+  UserDto getuserById(Long id);
 }

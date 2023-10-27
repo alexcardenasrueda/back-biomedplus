@@ -2,14 +2,14 @@ package com.softdevelop.biomedplus.service.impl;
 
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
-import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.UserDto;
-import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 import com.softdevelop.biomedplus.model.entity.UserEntity;
 import com.softdevelop.biomedplus.repository.*;
 import com.softdevelop.biomedplus.service.UserService;
 import com.softdevelop.biomedplus.service.translator.UserTranslator;
+import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import java.util.ArrayList;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -76,6 +76,24 @@ public class UserServiceImpl implements UserService {
             throw new GenericException(e.getMessage());
         }
         return modelMapper.map(allUsersEntity, new TypeToken<List<UserDto>>() {}.getType());
+    }
+
+    @Override
+    public UserDto getuserById(Long id) {
+        LoggerEvent.info()
+            .forClass(EquipmentServiceImpl.class)
+            .withField("Action: ", "getEquipments-init")
+            .log();
+
+        try {
+            Optional<UserEntity> userEntity = userRepository.findById(id);
+            if (userEntity.isEmpty()){
+                throw new NotFoundException("User not found");
+            }
+            return userTranslator.userEntityToUserDto(userEntity.get());
+        } catch (Exception e) {
+            throw new GenericException(e.getMessage());
+        }
     }
 
 }
