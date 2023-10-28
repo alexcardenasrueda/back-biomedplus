@@ -2,6 +2,7 @@ package com.softdevelop.biomedplus.service.translator;
 
 import static com.softdevelop.biomedplus.util.Constants.TICKET_IMAGE_DIRECTORY;
 
+import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.model.dto.EquipmentDto;
 import com.softdevelop.biomedplus.model.dto.StatusDto;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
@@ -48,9 +49,27 @@ public class TicketTranslator {
         .creationDate(ticket.getCreationDate())
         .closeDate(closeDate)
         .image(imageToResponse)
-        .status(StatusDto.builder().id(ticket.getStatus().getId()).build())
-        .equipment(EquipmentDto.builder().id(ticket.getEquipment().getId()).build())
-        .user(UserDto.builder().id(ticket.getUser().getId()).build())
+
+        .status(StatusDto.builder()
+            .id(ticket.getStatus().getId())
+            .name(Status.GetStatusByName(ticket.getStatus().getName()))
+            .build())
+
+        .equipment(EquipmentDto.builder()
+            .id(ticket.getEquipment().getId())
+            .name(ticket.getEquipment().getName())
+            .brand(ticket.getEquipment().getBrand())
+            .model(ticket.getEquipment().getModel())
+            .series(ticket.getEquipment().getSeries())
+            .activeNumber(ticket.getEquipment().getActiveNumber())
+            .area(ticket.getEquipment().getArea())
+            .service(ticket.getEquipment().getService())
+            .build())
+
+        .user(UserDto.builder()
+            .id(ticket.getUser().getId())
+            .name(ticket.getUser().getName())
+            .build())
         .build();
   }
 }
