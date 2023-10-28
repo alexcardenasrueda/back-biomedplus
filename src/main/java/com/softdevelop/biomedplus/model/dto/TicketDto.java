@@ -19,26 +19,25 @@ import lombok.ToString;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class TicketDto implements Serializable {
-    private static final long serialVersionUID = -2726183053018213672L;
+  private static final long serialVersionUID = -2726183053018213672L;
 
-    private long id;
-    @NotBlank(message = "The ticket description cannot be empty")
-    private String description;
+  private long id;
 
-    @NotBlank(message = "The ticket creation_date cannot be empty")
-    private String creationDate;
+  @NotBlank(message = "The ticket description cannot be empty")
+  private String description;
 
-    private String closeDate;
+  @NotBlank(message = "The ticket creation_date cannot be empty")
+  private String creationDate;
 
-    private String image;
+  private String closeDate;
+  private String image;
 
-    @NotNull(message = "The ticket status cannot be empty")
-    private StatusDto status;
+  @NotNull(message = "The ticket status cannot be empty")
+  private StatusDto status;
 
+  @NotNull(message = "The ticket equipment cannot be empty")
+  private EquipmentDto equipment;
 
-    @NotNull(message = "The ticket equipment cannot be empty")
-    private EquipmentDto equipment;
-
-    @NotNull(message = "The ticket user cannot be empty")
-    private UserDto user;
+  @NotNull(message = "The ticket user cannot be empty")
+  private UserDto user;
 }

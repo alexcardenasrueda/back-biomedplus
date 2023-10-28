@@ -7,7 +7,6 @@ import com.softdevelop.biomedplus.enums.Status;
 import com.softdevelop.biomedplus.exception.GenericException;
 import com.softdevelop.biomedplus.exception.NotFoundException;
 import com.softdevelop.biomedplus.model.dto.TicketDto;
-import com.softdevelop.biomedplus.model.entity.EquipmentEntity;
 import com.softdevelop.biomedplus.model.entity.TicketEntity;
 import com.softdevelop.biomedplus.repository.StatusRepository;
 import com.softdevelop.biomedplus.repository.UserRepository;
@@ -31,135 +30,132 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class TicketServiceImpl implements TicketService {
 
-    private final TicketRepository ticketRepository;
-    private final EquipmentRepository equipmentRepository;
-    private final StatusRepository statusRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-    private final TicketTranslator ticketTranslator;
+  private final TicketRepository ticketRepository;
+  private final EquipmentRepository equipmentRepository;
+  private final StatusRepository statusRepository;
+  private final UserRepository userRepository;
+  private final ModelMapper modelMapper;
+  private final TicketTranslator ticketTranslator;
+  private final GenericUtilities genericUtilities;
 
-    private final GenericUtilities genericUtilities;
+  @Override
+  public List<TicketDto> getTickets() throws GenericException {
 
-    @Override
-    public List<TicketDto> getTickets() throws GenericException {
+    LoggerEvent.info()
+        .forClass(TicketServiceImpl.class)
+        .withField("Action: ", "getAllTickets")
+        .log();
 
-        LoggerEvent.info()
-            .forClass(TicketServiceImpl.class)
-            .withField("Action: ", "getAllTickets")
-            .log();
-
-        List<TicketDto> ticketsRs;
-        try {
-            List<TicketEntity> allTickets = ticketRepository.findAll();
+    List<TicketDto> ticketsRs;
+    try {
+      List<TicketEntity> allTickets = ticketRepository.findAllByOrderByDescription();
       if (allTickets.isEmpty()) {
-          log.error(NOT_FOUND_TICKETS);
-                throw new NotFoundException(NOT_FOUND_TICKETS);
-            }
-            ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {
-            }.getType());
-            for(TicketEntity ticket :allTickets) {
-                TicketDto ticketTemp = ticketTranslator.setTicketEntityToTicketDto(ticket);
-
-                ticketsRs.add(ticketTemp);
-            }
-
-        } catch (RuntimeException e) {
-            throw new GenericException(e.getMessage());
-        }
-        return ticketsRs;
+        log.error(NOT_FOUND_TICKETS);
+        throw new NotFoundException(NOT_FOUND_TICKETS);
+      }
+      ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {}.getType());
+      for (TicketEntity ticket : allTickets) {
+        TicketDto ticketTemp = ticketTranslator.setTicketEntityToTicketDto(ticket);
+        ticketsRs.add(ticketTemp);
+      }
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
     }
+    return ticketsRs;
+  }
 
-    @Override
-    public List<TicketDto> getTicketsCreated() throws GenericException {
-        LoggerEvent.info()
-            .forClass(TicketServiceImpl.class)
-            .withField("Action: ", "getTicketsCreated")
-            .log();
+  @Override
+  public List<TicketDto> getTicketsCreated() throws GenericException {
+    LoggerEvent.info()
+        .forClass(TicketServiceImpl.class)
+        .withField("Action: ", "getTicketsCreated")
+        .log();
 
-        List<TicketDto> ticketsRs;
-        try {
-            List<TicketEntity> allTickets = ticketRepository.findByStatusName(Status.CREATED.name());
+    List<TicketDto> ticketsRs;
+    try {
+      List<TicketEntity> allTickets = ticketRepository.findByStatusName(Status.CREATED.name());
 
-            if (allTickets.isEmpty()) {
-                log.error(NOT_FOUND_TICKETS);
-                throw new NotFoundException(NOT_FOUND_TICKETS);
-            }
-            ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {
-            }.getType());
-        } catch (RuntimeException e) {
-            throw new GenericException(e.getMessage());
-        }
-        return ticketsRs;
+      if (allTickets.isEmpty()) {
+        log.error(NOT_FOUND_TICKETS);
+        throw new NotFoundException(NOT_FOUND_TICKETS);
+      }
+      ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {}.getType());
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
     }
+    return ticketsRs;
+  }
 
-    @Override
-    public TicketDto createTicket(TicketDto ticketDto, MultipartFile image) {
-        TicketEntity ticketSaved;
-        try{
-            boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
-            if (!exist) {
-                throw new NotFoundException("Equipment not found");
-            }
-            exist = statusRepository.existsById(ticketDto.getStatus().getId());
-            if (!exist) {
-                throw new NotFoundException("Status not found");
-            }
-            exist = userRepository.existsById(ticketDto.getUser().getId());
-            if (!exist) {
-                throw new NotFoundException("User not found");
-            }
+  @Override
+  public TicketDto createTicket(TicketDto ticketDto, MultipartFile image) {
+    TicketEntity ticketSaved;
+    try {
+      boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
+      if (!exist) {
+        throw new NotFoundException("Equipment not found");
+      }
+      exist = statusRepository.existsById(ticketDto.getStatus().getId());
+      if (!exist) {
+        throw new NotFoundException("Status not found");
+      }
+      exist = userRepository.existsById(ticketDto.getUser().getId());
+      if (!exist) {
+        throw new NotFoundException("User not found");
+      }
 
-            TicketEntity ticketEntityToSave = new TicketEntity();
-            if (image != null && !image.isEmpty()){
-                genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
-                ticketEntityToSave.setImage(image.getOriginalFilename());
-            }
+      TicketEntity ticketEntityToSave = new TicketEntity();
+      if (image != null && !image.isEmpty()) {
+        genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
+        ticketEntityToSave.setImage(image.getOriginalFilename());
+      }
 
-            ticketSaved = ticketRepository.save(
-                    ticketTranslator.setTicketDtoToTicketEntity(ticketEntityToSave, ticketDto));
-        }catch (RuntimeException e ){
-            throw new GenericException(e.getMessage());
-        }
-        return modelMapper.map(ticketSaved, TicketDto.class);
+      ticketSaved =
+          ticketRepository.save(
+              ticketTranslator.setTicketDtoToTicketEntity(ticketEntityToSave, ticketDto));
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
     }
+    return modelMapper.map(ticketSaved, TicketDto.class);
+  }
 
-    @Override
-    public TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image) {
-        TicketDto ticketSavedDto;
-        try{
-            boolean exist = ticketRepository.existsById(id);
-            if (!exist) {
-                throw new NotFoundException("Ticket not found");
-            }
+  @Override
+  public TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image) {
+    TicketDto ticketSavedDto;
+    try {
+      boolean exist = ticketRepository.existsById(id);
+      if (!exist) {
+        throw new NotFoundException("Ticket not found");
+      }
 
-            exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
-            if (!exist) {
-                throw new NotFoundException("Equipment not found");
-            }
+      exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
+      if (!exist) {
+        throw new NotFoundException("Equipment not found");
+      }
 
-            exist = statusRepository.existsById(ticketDto.getStatus().getId());
-            if (!exist) {
-                throw new NotFoundException("Status not found");
-            }
+      exist = statusRepository.existsById(ticketDto.getStatus().getId());
+      if (!exist) {
+        throw new NotFoundException("Status not found");
+      }
 
-            exist = userRepository.existsById(ticketDto.getUser().getId());
-            if (!exist) {
-                throw new NotFoundException("User not found");
-            }
+      exist = userRepository.existsById(ticketDto.getUser().getId());
+      if (!exist) {
+        throw new NotFoundException("User not found");
+      }
 
-            TicketEntity ticketEntity = new TicketEntity();
-            if (image != null && !image.isEmpty()){
-                genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
-                ticketEntity.setImage(image.getOriginalFilename());
-            }
+      TicketEntity ticketEntity = new TicketEntity();
+      if (image != null && !image.isEmpty()) {
+        genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
+        ticketEntity.setImage(image.getOriginalFilename());
+      }
 
-            ticketEntity.setId(id);
-            TicketEntity ticketSaved = ticketRepository.save(
-                    ticketTranslator.setTicketDtoToTicketEntity(ticketEntity, ticketDto));
-            ticketSavedDto = modelMapper.map(ticketSaved, TicketDto.class);
-        }catch (RuntimeException e ){
-            throw new GenericException(e.getMessage());
-        }
-        return ticketSavedDto;
+      ticketEntity.setId(id);
+      TicketEntity ticketSaved =
+          ticketRepository.save(
+              ticketTranslator.setTicketDtoToTicketEntity(ticketEntity, ticketDto));
+      ticketSavedDto = modelMapper.map(ticketSaved, TicketDto.class);
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
     }
+    return ticketSavedDto;
+  }
 }
