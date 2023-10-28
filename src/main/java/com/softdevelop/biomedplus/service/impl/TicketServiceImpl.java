@@ -16,6 +16,7 @@ import com.softdevelop.biomedplus.repository.TicketRepository;
 import com.softdevelop.biomedplus.service.translator.TicketTranslator;
 import com.softdevelop.biomedplus.util.GenericUtilities;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -46,17 +47,17 @@ public class TicketServiceImpl implements TicketService {
         .withField("Action: ", "getAllTickets")
         .log();
 
-    List<TicketDto> ticketsRs;
+    List<TicketDto> ticketsRs = new ArrayList<>();
     try {
       List<TicketEntity> allTickets = ticketRepository.findAllByOrderByDescription();
       if (allTickets.isEmpty()) {
         log.error(NOT_FOUND_TICKETS);
         throw new NotFoundException(NOT_FOUND_TICKETS);
       }
-      ticketsRs = modelMapper.map(allTickets, new TypeToken<List<TicketDto>>() {}.getType());
-      for (TicketEntity ticket : allTickets) {
-        TicketDto ticketTemp = ticketTranslator.setTicketEntityToTicketDto(ticket);
-        ticketsRs.add(ticketTemp);
+
+      for (TicketEntity ticketItem : allTickets) {
+        TicketDto ticketTemporal = ticketTranslator.setTicketEntityToTicketDto(ticketItem);
+        ticketsRs.add(ticketTemporal);
       }
     } catch (RuntimeException e) {
       throw new GenericException(e.getMessage());
@@ -104,14 +105,17 @@ public class TicketServiceImpl implements TicketService {
       }
 
       TicketEntity ticketEntityToSave = new TicketEntity();
+
       if (image != null && !image.isEmpty()) {
         genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
         ticketEntityToSave.setImage(image.getOriginalFilename());
       }
 
+      TicketEntity testVariable = ticketTranslator.setTicketDtoToTicketEntity(ticketEntityToSave,
+          ticketDto);
+
       ticketSaved =
-          ticketRepository.save(
-              ticketTranslator.setTicketDtoToTicketEntity(ticketEntityToSave, ticketDto));
+          ticketRepository.save(testVariable);
     } catch (RuntimeException e) {
       throw new GenericException(e.getMessage());
     }

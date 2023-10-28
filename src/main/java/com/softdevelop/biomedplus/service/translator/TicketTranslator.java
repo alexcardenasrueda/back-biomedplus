@@ -22,15 +22,11 @@ public class TicketTranslator {
     ticketEntity.setDescription(ticketDto.getDescription().toUpperCase());
     ticketEntity.setCreationDate(ticketDto.getCreationDate());
     ticketEntity.setCloseDate(ticketDto.getCloseDate());
-    StatusEntity status = new StatusEntity();
-    status.setId(ticketDto.getStatus().getId());
-    ticketEntity.setStatus(status);
-    EquipmentEntity equipment = new EquipmentEntity();
-    equipment.setId(ticketDto.getEquipment().getId());
-    ticketEntity.setEquipment(equipment);
-    UserEntity user = new UserEntity();
-    user.setId(ticketDto.getUser().getId());
-    ticketEntity.setUser(user);
+
+    ticketEntity.setStatus(StatusEntity.builder().id(ticketDto.getStatus().getId()).build());
+    ticketEntity.setEquipment(EquipmentEntity.builder().id(ticketDto.getEquipment().getId()).build());
+    ticketEntity.setUser(UserEntity.builder().id(ticketDto.getUser().getId()).build());
+
     return ticketEntity;
   }
 

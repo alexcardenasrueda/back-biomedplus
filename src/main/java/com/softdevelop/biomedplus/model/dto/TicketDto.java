@@ -30,7 +30,6 @@ public class TicketDto implements Serializable {
   private String creationDate;
 
   private String closeDate;
-  private String image;
 
   @NotNull(message = "The ticket status cannot be empty")
   private StatusDto status;
@@ -40,4 +39,6 @@ public class TicketDto implements Serializable {
 
   @NotNull(message = "The ticket user cannot be empty")
   private UserDto user;
+
+  private String image;
 }
