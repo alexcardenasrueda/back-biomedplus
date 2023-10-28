@@ -67,4 +67,11 @@ public class TicketController {
     List<TicketDto> requests = ticketService.getTicketsCreated();
     return ResponseEntity.ok(requests);
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteTicket(
+      @PathVariable("id") Long id) {
+    ticketService.deleteTicket(id);
+    return ResponseEntity.ok("Ticket deleted");
+  }
 }

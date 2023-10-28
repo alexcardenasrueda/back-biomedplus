@@ -14,4 +14,6 @@ public interface TicketService {
   TicketDto createTicket(TicketDto ticketDto, MultipartFile image);
 
   TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image);
+
+  void deleteTicket(Long id);
 }

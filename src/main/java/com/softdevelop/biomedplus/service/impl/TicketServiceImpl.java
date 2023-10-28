@@ -162,4 +162,13 @@ public class TicketServiceImpl implements TicketService {
     }
     return ticketSavedDto;
   }
+
+  @Override
+  public void deleteTicket(Long id) {
+    try {
+      ticketRepository.deleteById(id);
+    } catch (RuntimeException e) {
+      throw new GenericException(e.getMessage());
+    }
+  }
 }
