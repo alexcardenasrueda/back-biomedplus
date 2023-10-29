@@ -52,7 +52,10 @@ public class SpareTranslator {
           .codeReference(spare.getCodeReference())
           .quantity(spare.getQuantity())
           .price(spare.getPrice())
-          .provider(ProviderDto.builder().id(spare.getProvider().getId()).build())
+          .provider(ProviderDto.builder()
+              .id(spare.getProvider().getId())
+              .name(spare.getProvider().getName())
+              .build())
           .image(imageToResponse)
           .build();
     }
