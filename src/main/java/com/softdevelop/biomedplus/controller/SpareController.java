@@ -43,7 +43,7 @@ public class SpareController {
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<SpareDto> updateSpare(
       @PathVariable("id") Long id, @RequestParam("data") String spareStr,
-      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+      @RequestPart(value = "image", required = false)MultipartFile image) throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
     SpareDto spareRq = objectMapper.readValue(spareStr, SpareDto.class);
     SpareDto spareRs = spareService.updateSpare(id, spareRq, image);

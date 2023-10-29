@@ -72,7 +72,9 @@ public class SpareServiceImpl implements SpareService {
             if (image != null && !image.isEmpty()){
                 genericUtilities.imageBuilder(image, SPARE_IMAGE_DIRECTORY);
                 spareEntityToUpdate.get().setImage(image.getOriginalFilename());
-            }
+            } else {
+                spareEntityToUpdate.get().setImage(spareEntityToUpdate.get().getImage());
+            }git
 
             spareEntityToUpdate.get().setId(id);
             SpareEntity spareSaved = spareRepository.save(

@@ -68,6 +68,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     if (image != null && !image.isEmpty()){
       genericUtilities.imageBuilder(image, EQUIPMENT_IMAGE_DIRECTORY);
       equipmentEntityToUpdate.get().setImage(image.getOriginalFilename());
+    } else {
+      equipmentEntityToUpdate.get().setImage(equipmentEntityToUpdate.get().getImage());
     }
     EquipmentEntity equipmentUpdated = equipmentRepository.save(
         equipmentTranslator.setEquipmentDtoToEquipmentEntity(equipmentEntityToUpdate.get(), equipmentRq));

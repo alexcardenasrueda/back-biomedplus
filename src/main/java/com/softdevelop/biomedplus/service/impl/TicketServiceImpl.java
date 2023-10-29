@@ -17,6 +17,7 @@ import com.softdevelop.biomedplus.service.translator.TicketTranslator;
 import com.softdevelop.biomedplus.util.GenericUtilities;
 import com.softdevelop.biomedplus.util.logs.LoggerEvent;
 import java.util.ArrayList;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -126,12 +127,14 @@ public class TicketServiceImpl implements TicketService {
   public TicketDto updateTicket(Long id, TicketDto ticketDto, MultipartFile image) {
     TicketDto ticketSavedDto;
     try {
-      boolean exist = ticketRepository.existsById(id);
-      if (!exist) {
+
+      Optional<TicketEntity> ticketEntityOptional = ticketRepository.findById(id);
+
+      if (ticketEntityOptional.isEmpty()) {
         throw new NotFoundException("Ticket not found");
       }
 
-      exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
+      boolean exist = equipmentRepository.existsById(ticketDto.getEquipment().getId());
       if (!exist) {
         throw new NotFoundException("Equipment not found");
       }
@@ -146,10 +149,12 @@ public class TicketServiceImpl implements TicketService {
         throw new NotFoundException("User not found");
       }
 
-      TicketEntity ticketEntity = new TicketEntity();
+      TicketEntity ticketEntity = ticketEntityOptional.get();
       if (image != null && !image.isEmpty()) {
         genericUtilities.imageBuilder(image, TICKET_IMAGE_DIRECTORY);
         ticketEntity.setImage(image.getOriginalFilename());
+      } else {
+        ticketEntity.setImage(ticketEntityOptional.get().getImage());
       }
 
       ticketEntity.setId(id);

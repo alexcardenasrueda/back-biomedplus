@@ -49,7 +49,7 @@ public class EquipmentController {
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<EquipmentDto> updateEquipment(
           @PathVariable("id") Long id, @RequestParam("data") String equipmentStr,
-      @RequestPart("image")MultipartFile image) throws JsonProcessingException {
+      @RequestPart(value = "image", required = false)MultipartFile image) throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
     EquipmentDto equipmentRq = objectMapper.readValue(equipmentStr, EquipmentDto.class);
     EquipmentDto equipmentRs = equipmentService.updateEquipment(id, equipmentRq, image);
